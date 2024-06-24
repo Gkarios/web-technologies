@@ -2,7 +2,7 @@
 $dbServer = "localhost";
 $dbUser = "root";
 $dbPass = "";
-$dbName = "nature";
+$dbName = "trello";
 $conn = "";
 
 try {
