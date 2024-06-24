@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 24, 2024 at 01:37 PM
+-- Generation Time: Jun 24, 2024 at 02:03 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -41,14 +41,30 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`firstName`, `lastName`, `username`, `password`, `email`, `simplepushKey`) VALUES
-('antonio', 'lyric', 'anth', '$2y$10$ZDJ8lB7Qgp2sI607048NOenZpUSkBsZhBoQu/0LPngTruzHlk8l.y', 'lyric1245@gmail.com', ''),
-('Steven', 'Bonnell', 'Destiny', '$2y$10$ro2aMCesuokn//XDGATUp.7D9iYZ1/S1a/GwhkiVcG5TnOVZq.xEi', 'stevenbonnell@gmail.com', ''),
-('ready', 'bee', 'layin', '$2y$10$YLMmZpg3YG7BdKJvYisutuuK/TYwMFvjlY4rZ8KTezMqJAi0N3w1K', 'lays@gmail.com', ''),
+('Aubrey', 'Graham', 'Dropper', '$2y$10$GFNl1Mvmy97F4ZnFoYypH.ow0KbCkYpTEF9yGPVh3gNDNp9E0CXlq', 'Aubrey43434@gmail.com', NULL),
+('Jay', 'Walker', 'JayWalker', '$2y$10$1hf36At4KmZsXJMuTI6T4OzDw501etcJt6pSB5H6v95s.FzsAQMsm', 'Jayw@gmail.com', 'Uekieu'),
 ('Leon', 'Jones', 'LeeJ', '$2y$10$xtNrahQ2bpGsVd8YSxZJ6O301No50AZmCxk6bFg4njlgyZ8Yf3Gf.', 'LeeJones@gmail.com', 'G8f3jF'),
-('Mal', 'CIBIS', 'MALCB', '$2y$10$52/cO8qgR5r.VJcy0hlXf.VDKk3Z04MMU5i0aCQW8q7no5.vHaY.G', 'malcb@ionio.gr', ''),
-('mallard', 'CB', 'mallCB', '$2y$10$qiYxE0PzyezGl9JkOi5WYOLFbrTHMpNhfei5wWd9JS2fEY.oGy5Z.', 'mallory@yahoomail.com', ''),
-('MC', 'Ryde', 'MC Ryde', '$2y$10$sV7QX43jyFBX/rt4VT8wZ.sE9Gc.COlXTFaJTLh0qPjDrypc5VHNi', 'mcryde@gmail.com', ''),
-('Yassin', 'Beau', 'Mos', '$2y$10$37f24NaQDjlZGRH7/gSCMORyZ/X7l5tY36TRr8o/IPvMkz6lUBBYW', 'YassinB@gmail.com', 'Uekieu');
+('Stephan', 'Borelli', 'Mr. Borelli', '$2y$10$pGNgdSD2wECX3V9kEuI12uPpPg0I1yhAm9mY2bSa9rJf2YqJgnb2O', 'stevenbonnell@gmail.com', NULL);
+
+--
+-- Triggers `users`
+--
+DELIMITER $$
+CREATE TRIGGER `before_insert_simplepushKey` BEFORE INSERT ON `users` FOR EACH ROW BEGIN
+    IF NEW.simplepushKey = '' THEN
+        SET NEW.simplepushKey = NULL;
+    END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `before_update_simplepushKey` BEFORE UPDATE ON `users` FOR EACH ROW BEGIN
+    IF NEW.simplepushKey = '' THEN
+        SET NEW.simplepushKey = NULL;
+    END IF;
+END
+$$
+DELIMITER ;
 
 --
 -- Indexes for dumped tables
@@ -60,7 +76,7 @@ INSERT INTO `users` (`firstName`, `lastName`, `username`, `password`, `email`, `
 ALTER TABLE `users`
   ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`),
-  ADD KEY `simplepushKey` (`simplepushKey`);
+  ADD UNIQUE KEY `simplepushKey` (`simplepushKey`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
