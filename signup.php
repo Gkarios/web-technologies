@@ -26,7 +26,8 @@ session_start();
         <input type="email" name="email"><br>
         simplepush.io key<br>
         <input type="text" name="simplepushKey"><br>
-        <input type="submit" name="register" value="register">
+        <input type="submit" name="signup" value="sign up">
+            <br>
     </form>
 </body>
 </html>
@@ -60,3 +61,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 mysqli_close($conn);
 ?>
+
+<!DOCTYPE html>
+<html>
+    <body>
+        <form action="login.php" method="POST">
+            <br><br>
+            <p>Already have an account?</p> 
+            <input type="submit" value="Log In">
+        </form>
+    </body> 
+</html>

@@ -2,28 +2,60 @@
 session_start();
 include ("database.php");
 
-echo "HOME PAGE <br> <br>";
-if (isset($_SESSION["username"])) {
-    echo "Welcome, <br>" . $_SESSION['username'];
-}
+echo "HOME PAGE <br>";
 
-$sql = "SELECT simplepushkey FROM users WHERE username = '{$_SESSION['username']}'";
-try {
-    $result = mysqli_query($conn, $sql);
-    $resultKey = mysqli_fetch_assoc($result);
+if (!isset($_SESSION["username"])) {
+    echo "You are not logged in <br>";
+    ?>
+        <!DOCTYPE html>
+        <html lang="en">
+        <body>
+        <form action="login.php" method="POST">
+            <br>
+            <button type="submit">Log In</button>
+        </form>
+        </body>
+    </html>
 
-    if ($resultKey) {
+    <?php
+} else {
+    echo "Welcome, " . $_SESSION['username'];
+
+    $sql = "SELECT simplepushkey FROM users WHERE username = '{$_SESSION['username']}'";
+    try {
+        $result = mysqli_query($conn, $sql);
+        $resultKey = mysqli_fetch_assoc($result);
         $key = $resultKey['simplepushkey'];
-    } else {
-        echo "no key found";
+    } catch (mysqli_sql_exception $e) {
+        echo "sql query messed up" . $e->getMessage() . "";
     }
-} catch (mysqli_sql_exception $e) {
-    echo "sql query messed up" . $e->getMessage() . "";
+
+    if ($key) {
+        $title = "NEW TASK";
+        $message = "A USER HAS STARTED A NEW TASK";
+        // Simplepush::send($key, $title, $message);
+    } else {
+        echo "<br><br>(you have no notification key)";
+    }
 }
 
-$title = "NEW TASK";
-$message = "A USER HAS STARTED A NEW TASK";
-// Simplepush::send($key, $title, $message);
+    ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <form action="logout.php" method="POST">
+        <br>
+        <button type="submit">Logout</button>
+    </form>
+</body>
+</html>
+
+<?php
 
 
 
