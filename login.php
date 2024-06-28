@@ -1,3 +1,9 @@
+<?php
+session_start();
+include ('database.php');
+include ("header.html");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,14 +27,12 @@
 
 
 <?php
-session_start();
-include 'database.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT username, password FROM users WHERE username = ?");
+    $stmt = $conn->prepare("SELECT username, password, email, firstName, lastName, simplepushKey FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -40,8 +44,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Verify the password
         if (password_verify($password, $user['password'])) {
             // Password is correct, start the session
+
             $_SESSION['username'] = $user['username'];
-            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['email'] = $user['email'];
+            $_SESSION['firstName'] = $user['firstName'];
+            $_SESSION['lastName'] = $user['lastName'];
+            $_SESSION['simplepushKey'] = $user['simplepushKey'];
+            $_SESSION['update_success'] = "Information updated successfully.";
+
             header("Location: home.php");
             exit;
         } else {
@@ -66,8 +76,8 @@ $conn->close();
     <body>
         <form action="signup.php" method="POST">
             <br><br>
-            <p>Don't have an account?</p> 
+            <p>Don't have an account?</p>
             <input type="submit" value="Sign Up">
         </form>
-    </body> 
+    </body>
 </html>

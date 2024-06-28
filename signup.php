@@ -1,5 +1,6 @@
 <?php
 include ("database.php");
+include ("header.html");
 session_start();
 ?>
 
@@ -10,10 +11,11 @@ session_start();
     <meta charset="UTF-8">
     <title>SIGN UP</title>
 </head>
-
+    <body>
+        <h2>WELCOME TO TRELLO RIPOFF</h2>
+</body>
 <body>
     <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
-        <h2>WELCOME TO TRELLO RIPOFF</h2>
         first name:<br>
         <input type="text" name="firstName"><br>
         last name:<br>
@@ -46,12 +48,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO users (firstName, lastName, username, password, email, simplepushKey) VALUES ('$firstName', '$lastName', '$username', '$passwordHash', '$email', '$simplepushKey')";
-        
-        $_SESSION["username"] = $username;
+
 
         try {
             mysqli_query($conn, $sql);
-            header("Location: /trello/home.php");
+            $_SESSION['username'] = $username;
+            $_SESSION['email'] = $email;
+            $_SESSION['firstName'] = $firstName;
+            $_SESSION['lastName'] = $lastName;
+            $_SESSION['simplepushKey'] = $simplepushKey;
+            header("Location: home.php");
             exit;
         } catch (mysqli_sql_exception $e) {
             echo "THAT USERNAME HAS BEEN TAKEN B.";
