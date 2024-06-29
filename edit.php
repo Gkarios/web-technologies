@@ -47,6 +47,10 @@ if (!isset($_SESSION['username'])) {
         <input type="password" id="password" name="password">
         <input type="submit" name="action" value="cancel">
         <input type="submit" name="action" value="apply">
+        <br>
+        <br>
+        <label for="delete">Delete your account permanently:</label>
+        <input type="submit" name="action" value="delete">
         <br><br>
     </form>
 </body>
@@ -57,28 +61,34 @@ if (!isset($_SESSION['username'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST['action'];
 
+    $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
+    $username = $_SESSION['username'];
+    $stmt = $conn->prepare("SELECT password FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+
     if ($action == "apply") {
         $firstName = filter_input(INPUT_POST, "firstName", FILTER_SANITIZE_STRING);
         $lastName = filter_input(INPUT_POST, "lastName", FILTER_SANITIZE_STRING);
         $usernameNew = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
-        $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
-        $passwordNew= filter_input(INPUT_POST, "passwordNew", FILTER_SANITIZE_SPECIAL_CHARS);
+        $passwordNew = filter_input(INPUT_POST, "passwordNew", FILTER_SANITIZE_SPECIAL_CHARS);
         $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
         $simplepushKey = filter_input(INPUT_POST, "simplepushKey", FILTER_SANITIZE_SPECIAL_CHARS);
-        $username = $_SESSION['username'];
 
 
         if (empty($username) || empty($password) || empty($firstName) || empty($lastName) || empty($email)) {
             echo "Please fill in all the required boxes!";
         } else {
-            $stmt = $conn->prepare("SELECT password FROM users WHERE username = ?");
-            $stmt->bind_param("s", $username);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            $user = $result->fetch_assoc();
-
             if (password_verify($password, $user['password'])) {
-                $passwordHash = password_hash($passwordNew, PASSWORD_DEFAULT);
+                $passwordHash;
+                if ($passwordNew != "") {
+                    $passwordHash = password_hash($passwordNew, PASSWORD_DEFAULT);
+                } else {
+                    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+                }
+
                 $stmt = $conn->prepare("UPDATE users SET firstName = ?, lastName = ?, username = ?, password = ?, email = ?, simplepushKey = ? WHERE username = ?");
                 $stmt->bind_param("sssssss", $firstName, $lastName, $usernameNew, $passwordHash, $email, $simplepushKey, $username);
                 if ($stmt->execute()) {
@@ -103,6 +113,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "CANCEL";
         header("Location: home.php");
         exit;
+    } else if ($action == "delete") {
+        if (password_verify($password, $user['password'])){
+       
+        $randomWords = [];
+        $wordNum = 5; 
+        for ($i = 0; $i < $wordNum; $i++){
+            $randomWords[] = getRandomWord();
+        }
+        $randomPass = password_hash($randomWords[3], PASSWORD_DEFAULT);
+        // Prepare the SQL statement to update the user with random values
+        $stmt = $conn->prepare("UPDATE users SET firstName = ?, lastName = ?, username = ?, password = ?, email = ? WHERE username = ?");
+        $stmt->bind_param("ssssss", $randomWords[0], $randomWords[1], $randomWords[2], $randomPass, $randomWords[4], $username);
+
+        if ($stmt->execute()) {
+            echo "User details updated successfully.";
+
+            // Update the session variables with new values
+            header("Location: logout.php");
+            exit;
+        } else {
+            echo "Error updating user details: " . $stmt->error;
+        }
+
+        $stmt->close();
+        $conn->close();
+    } else{
+        echo "Incorrect password!";
     }
+        }
+}
+
+
+//RETURNS RANDOM WORD
+function getRandomWord()
+{
+    $api_url = 'https://random-word-api.herokuapp.com/word?number=1';
+    $response = file_get_contents($api_url);
+    $words = json_decode($response);
+    return $words[0];
 }
 ?>

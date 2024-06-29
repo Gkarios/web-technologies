@@ -50,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['firstName'] = $user['firstName'];
             $_SESSION['lastName'] = $user['lastName'];
             $_SESSION['simplepushKey'] = $user['simplepushKey'];
-            $_SESSION['update_success'] = "Information updated successfully.";
 
             header("Location: home.php");
             exit;
@@ -69,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // Close the connection
 $conn->close();
+
 ?>
 
 <!DOCTYPE html>
