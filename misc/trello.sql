@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 29, 2024 at 05:21 PM
+-- Generation Time: Aug 06, 2024 at 09:37 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,41 @@ SET time_zone = "+00:00";
 --
 -- Database: `trello`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `taskLists`
+--
+
+CREATE TABLE `taskLists` (
+  `username` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `taskLists`
+--
+
+INSERT INTO `taskLists` (`username`, `title`, `timestamp`) VALUES
+('Jaywalk', 'Anything', '2024-08-05 19:17:32'),
+('Jaywalk', 'math', '2024-08-05 19:25:20'),
+('Jaywalk', 'msuci', '2024-08-06 07:10:04'),
+('Jaywalk', 'music', '2024-08-05 19:25:19');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tasks`
+--
+
+CREATE TABLE `tasks` (
+  `title` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `task` varchar(255) NOT NULL,
+  `status` enum('in progress','stand by','completed') NOT NULL DEFAULT 'in progress'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -46,7 +81,7 @@ INSERT INTO `users` (`firstName`, `lastName`, `username`, `password`, `email`, `
 ('Aubrey', 'Graham', 'Dropper', '$2y$10$GFNl1Mvmy97F4ZnFoYypH.ow0KbCkYpTEF9yGPVh3gNDNp9E0CXlq', 'Aubrey43434@gmail.com', NULL),
 ('prevue', 'lurkingly', 'enlarges', '$2y$10$5Q7/ZbY2dJP95VQnbTSOpuqszsCAPoVbKgHCxUYqtLQ8nsbrCpMry', 'disestablished', NULL),
 ('Sarah', 'Jones', 'Espien123', '$2y$10$7tiDPpkEIT5XoqVV1cAmEOvdTuJONn0.oexGB7/yKl2AKblvP/3Jm', 'SarahJJ56@gmail.com', NULL),
-('Jay', 'Walker', 'Jaywalker', '$2y$10$Nze1b/yM/ehKelrWxTekYuF2xcg7X.C/EagpPCHBXajBeKCzYc76S', 'JayWalker@gmail.com', NULL),
+('Jay', 'Walker', 'Jaywalk', '$2y$10$cO.NKEoLekD8no2e/RnoKOQDEyir.PM9hj6MdJsyg.R0VR9XaPFdW', 'JayWalker@gmail.com', NULL),
 ('Leon', 'Jones', 'LeeJ', '$2y$10$xtNrahQ2bpGsVd8YSxZJ6O301No50AZmCxk6bFg4njlgyZ8Yf3Gf.', 'LeeJones@gmail.com', 'G8f3jF'),
 ('Mallards', 'CB', 'MallardCB', '$2y$10$fpcsDOgJ61LN48gJxEv9buh.5FUDn8HI9DHZfA/Y3pLDqrbAXQgNy', 'mallory@yahoomail.com', NULL),
 ('Stephan', 'Borelli', 'Mr. Borelli', '$2y$10$pGNgdSD2wECX3V9kEuI12uPpPg0I1yhAm9mY2bSa9rJf2YqJgnb2O', 'stevenbonnell@gmail.com', NULL),
@@ -81,12 +116,41 @@ DELIMITER ;
 --
 
 --
+-- Indexes for table `taskLists`
+--
+ALTER TABLE `taskLists`
+  ADD UNIQUE KEY `title` (`title`),
+  ADD KEY `username` (`username`);
+
+--
+-- Indexes for table `tasks`
+--
+ALTER TABLE `tasks`
+  ADD KEY `task` (`task`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `simplepushKey` (`simplepushKey`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `taskLists`
+--
+ALTER TABLE `taskLists`
+  ADD CONSTRAINT `taskLists_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `tasks`
+--
+ALTER TABLE `tasks`
+  ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`task`) REFERENCES `taskLists` (`title`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
