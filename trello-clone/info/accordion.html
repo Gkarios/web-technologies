@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="light.css" />
+  </head>
+  <body>
+    <div id="container">
+      <p class="faq">FAQ</p>
+      <h1>Frequently asked questions</h1>
+      <p class="assistance">Have questions? We've got you covered!</p>
+      <div id="FAQ-container">
+        <div class="question">
+          <div class="faq-header">
+            <h3>What is our mission?</h3>
+            <span>+</span>
+          </div>
+          <p class="hidden">Our mission is blah blah blah</p>
+        </div>
+        <div class="line"></div>
+        <div class="faq-header">
+          <h3>How do i sign up?</h3>
+          <span>+</span>
+        </div>
+        <p class="hidden">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur,
+          iure et reiciendis natus porro pariatur quidem, iusto minima dolorum
+          non maxime a qui ratione quis perspiciatis ducimus accusantium
+          laudantium quia.
+        </p>
+        <div class="line"></div>
+        <div class="question">
+          <div class="faq-header">
+            <h3>Why should i use trello clone?</h3>
+            <span>+</span>
+          </div>
+          <p class="hidden">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat,
+            adipisci ex. Sapiente id vitae quaerat explicabo, officiis enim esse
+            fugiat, corrupti cum deleniti quia sit veniam quae minus deserunt
+            odio!
+          </p>
+        </div>
+      </div>
+    </div>
+    <script>
+      const headers = document.querySelectorAll(".faq-header");
+      const para = document.querySelectorAll(".hidden");
+      const toggleIcon = document.querySelectorAll("span");
+
+      for (let i = 0; i < headers.length; i++) {
+        headers[i].addEventListener("click", () => {
+          para[i] =
+            para[i].style.display == "block"
+              ? (para[i].style.display = "none")
+              : (para[i].style.display = "block");
+          toggleIcon[i].textContent =
+            toggleIcon[i].textContent === "+" ? "−" : "+";
+        });
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <link rel="stylesheet" href="LogIn.css" />
+  </head>
+  <body>
+    <form>
+      <h1>User Login</h1>
+      <p>Enter your details to sign in to your account!</p>
+      <input placeholder="Username" type="text" required/>
+      <div id="pwd-container">
+        <input id="pwd" placeholder="Password" type="password" required /><img
+          src="eye.png" id="eye"
+        />
+      </div>
+      <button type="submit">Sign in</button>
+      <p>Haven't made an account yet? Sign up <a href="#">here</a></p>
+    </form>
+    <script>
+      const eye = document.querySelector("#eye");
+      const pwd = document.querySelector("#pwd");
+      const pwdContainer = document.querySelector("#pwd-container");
+
+      eye.addEventListener("mousedown", (event) => {
+        event.preventDefault();
+      });
+
+      eye.addEventListener("mouseup",(event)=>{
+        event.preventDefault();
+        const isHidden = pwd.type === "password";
+        pwd.type = isHidden ? "text": "password";
+        eye.src = isHidden ? "hidden.png": "eye.png";
+      })
+
+      pwd.addEventListener("focus", () => {
+        pwdContainer.setAttribute("style", "border-color: black;");
+      });
+
+      pwd.addEventListener("blur", () => {
+        pwdContainer.setAttribute("style", "border-color: lightgray;");
+      });
+    </script>
+  </body>
+</html>

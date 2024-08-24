@@ -1,0 +1,104 @@
+* {
+  color: lightcyan;
+}
+
+body {
+    background: linear-gradient(135deg, #2a0dcf, #3d3c3c);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    gap: 100px;
+  }
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  background-color: inherit;
+  margin-top: 2%;
+}
+
+.nav-links {
+  display: flex;
+  gap: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+button{
+    cursor: pointer;
+}
+
+.acc {
+  border-radius: 15px;
+  border: 2px solid rgb(241, 235, 235);
+  background-color: inherit;
+  padding-inline: 10px;
+  padding-block: 5px;
+  margin-left: 10px;
+}
+
+.mid-section {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+h1 {
+  font-family: cursive, sans-serif;
+  font-size: 3.5rem; /* Large and bold */
+  font-weight: 700;
+}
+
+p {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem; /* Smaller and lighter */
+  font-weight: 300;
+  line-height: 1.6; /* Improve readability */
+}
+
+.start {
+  background-color:mediumblue;
+  border-radius: 25px;
+  border:none;
+  padding:3% 6%;
+  font-size: 1rem; /* Smaller and lighter */
+  font-weight: bold;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.frame{
+    width: 250px;
+    height:350px;
+    border-radius: 25px;
+    background-color: #3882F6;
+    align-self: center;
+}
+
+.person{
+    height: 120%;
+    width: 120%;
+    margin-top:-40px;
+    margin-left: -10px;
+    min-width: 200px;
+}
+
+.tasklist,.tasklist2,.team{
+    width: 100px;
+    height: 100px;
+    opacity: 0.4;
+}
+
+.tasklist{
+    align-self: flex-end;
+    rotate: -30deg;
+}
+
+.tasklist2{
+    align-self: flex-end;
+    rotate: 30deg;
+}
+
+.team{
+    align-self: center;
+}

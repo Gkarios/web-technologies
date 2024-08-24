@@ -1,0 +1,73 @@
+html,body{
+   background-color: rgb(168, 213, 186);
+}
+
+#container{
+    display: flex;
+    gap: 30px;
+}
+
+.tasklist{
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    background-color: rgb(246, 241, 241);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+}
+
+.addBtn{
+   align-self: flex-start;
+}
+
+.viewOptions{
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.nameWrap{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task{
+    width: 150px;
+    height: 40px;
+    position: relative;
+}
+
+.taskOptions{
+    width:200px;
+    height: 100px;
+    margin-left: 100%;
+    margin-top: -20%;
+    background-color: rgb(255, 255, 255);
+    padding: 5%;
+    box-sizing: border-box;
+    border-radius: 15px;
+    display: none;
+    position: absolute;
+    z-index: 2;
+}
+
+.taskOptions > button{
+    background-color: inherit;
+    border: none;
+    width: 100%;
+    text-align: start;
+}
+
+.taskOptions > button:hover{
+    background-color: lightgray;
+}
+
+
+.taskOptions > h4{
+    text-align: center;
+    margin-top: 5%;
+}
