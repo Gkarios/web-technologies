@@ -43,7 +43,7 @@ if (!isset($_SESSION["username"])) {
     echo "Edit your account: "
     ?>
 
-<html lang="en">
+        <html lang="en">
     <body>
         <form action="edit.php" method="POST">
             <br>

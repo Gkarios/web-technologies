@@ -27,7 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_task'])) {
 
 // Handle deleting task list
 if (isset($_GET['delete_task_list'])) {
-    $query = "DELETE FROM taskLists WHERE username='$username'";
+    $delete_timestamp = $_GET['delete_task_list'];
+
+    $query = "DELETE FROM taskLists WHERE username='$username' AND timestamp='$delete_timestamp'";
     mysqli_query($conn, $query);
 
     // Also delete associated tasks

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 06, 2024 at 09:37 AM
+-- Generation Time: Aug 25, 2024 at 02:47 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `taskLists` (
+  `task_list_id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
@@ -37,11 +38,11 @@ CREATE TABLE `taskLists` (
 -- Dumping data for table `taskLists`
 --
 
-INSERT INTO `taskLists` (`username`, `title`, `timestamp`) VALUES
-('Jaywalk', 'Anything', '2024-08-05 19:17:32'),
-('Jaywalk', 'math', '2024-08-05 19:25:20'),
-('Jaywalk', 'msuci', '2024-08-06 07:10:04'),
-('Jaywalk', 'music', '2024-08-05 19:25:19');
+INSERT INTO `taskLists` (`task_list_id`, `username`, `title`, `timestamp`) VALUES
+(1, 'Jaywalk', '??', '2024-08-09 13:16:09'),
+(2, 'NickM', 'dfs', '2024-08-09 13:27:15'),
+(3, 'Jaywalk', 'ds', '2024-08-09 13:22:53'),
+(4, 'Espien123', 'music', '2024-08-25 11:44:38');
 
 -- --------------------------------------------------------
 
@@ -50,10 +51,11 @@ INSERT INTO `taskLists` (`username`, `title`, `timestamp`) VALUES
 --
 
 CREATE TABLE `tasks` (
+  `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
-  `task` varchar(255) NOT NULL,
-  `status` enum('in progress','stand by','completed') NOT NULL DEFAULT 'in progress'
+  `status` enum('in progress','stand by','completed') NOT NULL DEFAULT 'in progress',
+  `task_list_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
@@ -86,6 +88,7 @@ INSERT INTO `users` (`firstName`, `lastName`, `username`, `password`, `email`, `
 ('Mallards', 'CB', 'MallardCB', '$2y$10$fpcsDOgJ61LN48gJxEv9buh.5FUDn8HI9DHZfA/Y3pLDqrbAXQgNy', 'mallory@yahoomail.com', NULL),
 ('Stephan', 'Borelli', 'Mr. Borelli', '$2y$10$pGNgdSD2wECX3V9kEuI12uPpPg0I1yhAm9mY2bSa9rJf2YqJgnb2O', 'stevenbonnell@gmail.com', NULL),
 ('James', 'Brown', 'Mr. Brown', '$2y$10$iWlSF2C9kaVmbIOLkSFAqOoatKXXalKoz31wte3wVBC3oUTwIqxmi', 'JB@gmail.com', NULL),
+('Nick', 'm', 'NickM', '$2y$10$sggzLgN72/nKJeDHlujRuepUG/5.6elRutRd7yKkV0eU7b1vW4aoq', 'n@gmail.com', '8JbxPv'),
 ('heterotrophs', 'stutterer', 'supercar', '$2y$10$mNZosPc7LGMb4RU6SQpHMOcQRr9ekIoZRiIb75kEZcG5MNMpdCb3.', 'mestino', NULL),
 ('provider', 'wovens', 'supernatants', '$2y$10$3OGKh1UoKXLig14mXu1dZe9FfVyWMwEGANjKkOXYYbWZxSLXOkgji', 'veneration', NULL),
 ('cruzados', 'dodecaphony', 'traitoress', '$2y$10$xEEZot0VRu1LfR0tcLQ.ZeMxhFNRypE3LhEj5rROwDGWw7v6UChbm', 'emplaced', NULL),
@@ -119,14 +122,15 @@ DELIMITER ;
 -- Indexes for table `taskLists`
 --
 ALTER TABLE `taskLists`
-  ADD UNIQUE KEY `title` (`title`),
+  ADD PRIMARY KEY (`task_list_id`),
   ADD KEY `username` (`username`);
 
 --
 -- Indexes for table `tasks`
 --
 ALTER TABLE `tasks`
-  ADD KEY `task` (`task`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `task_list_id` (`task_list_id`);
 
 --
 -- Indexes for table `users`
@@ -135,6 +139,22 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `simplepushKey` (`simplepushKey`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `taskLists`
+--
+ALTER TABLE `taskLists`
+  MODIFY `task_list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tasks`
+--
+ALTER TABLE `tasks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -150,7 +170,7 @@ ALTER TABLE `taskLists`
 -- Constraints for table `tasks`
 --
 ALTER TABLE `tasks`
-  ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`task`) REFERENCES `taskLists` (`title`) ON DELETE CASCADE;
+  ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`task_list_id`) REFERENCES `taskLists` (`task_list_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
