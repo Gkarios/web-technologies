@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 25, 2024 at 02:47 PM
+-- Generation Time: Aug 25, 2024 at 04:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `taskLists` (
   `task_list_id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `title` varchar(255) NOT NULL,
+  `list_title` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
@@ -38,11 +38,12 @@ CREATE TABLE `taskLists` (
 -- Dumping data for table `taskLists`
 --
 
-INSERT INTO `taskLists` (`task_list_id`, `username`, `title`, `timestamp`) VALUES
+INSERT INTO `taskLists` (`task_list_id`, `username`, `list_title`, `timestamp`) VALUES
 (1, 'Jaywalk', '??', '2024-08-09 13:16:09'),
 (2, 'NickM', 'dfs', '2024-08-09 13:27:15'),
 (3, 'Jaywalk', 'ds', '2024-08-09 13:22:53'),
-(4, 'Espien123', 'music', '2024-08-25 11:44:38');
+(8, 'Espien123', 'language', '2024-08-25 13:31:41'),
+(10, 'Espien123', 'music', '2024-08-25 14:10:44');
 
 -- --------------------------------------------------------
 
@@ -57,6 +58,15 @@ CREATE TABLE `tasks` (
   `status` enum('in progress','stand by','completed') NOT NULL DEFAULT 'in progress',
   `task_list_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `tasks`
+--
+
+INSERT INTO `tasks` (`id`, `title`, `timestamp`, `status`, `task_list_id`) VALUES
+(1, 'English', '2024-08-25 14:10:13', 'in progress', 8),
+(2, 'Guitar', '2024-08-25 14:10:55', 'in progress', 10),
+(4, 'French', '2024-08-25 14:30:50', 'in progress', 8);
 
 -- --------------------------------------------------------
 
@@ -148,13 +158,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `taskLists`
 --
 ALTER TABLE `taskLists`
-  MODIFY `task_list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `task_list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
