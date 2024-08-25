@@ -1,6 +1,7 @@
 <?php
 include("database.php");
 include("header.html");
+include("Simplepush.php");
 session_start();
 
 error_reporting(E_ALL);
@@ -57,6 +58,7 @@ if (isset($_GET['delete_task'])) {
 if (isset($_POST['assign_task'])){
     $task_id = $_POST['task_id'];
     $assigned_user = $_POST['assigned_user'];
+    $task_title = $_POST['task_title'];
     
     //username check
         $stmt = $conn->prepare("UPDATE tasks SET assigned=? WHERE owner=? AND id=?");
@@ -67,6 +69,22 @@ if (isset($_POST['assign_task'])){
             echo "database error" . $stmt->error;
         }
         $stmt->close();
+    $sql = "SELECT simplepushkey FROM users WHERE username = '$assigned_user'";
+    try {
+        $result = mysqli_query($conn, $sql);
+        $resultKey = mysqli_fetch_assoc($result);
+        $key = $resultKey['simplepushkey'];
+        echo $key;
+    } catch (mysqli_sql_exception $e) {
+        echo "sql query messed up" . $e->getMessage() . "";
+    }
+
+    if ($key) {
+        echo "working key";
+        $title = "NEW TASK";
+        $message = "$username HAS ASSIGNED you with the task: $task_title";
+        Simplepush::send($key, $title, $message);
+    } 
 }
 
 // Handle unassigning task
@@ -119,6 +137,7 @@ $taskLists = mysqli_query($conn, $query);
                     <a href="?delete_task=<?php echo $task['id']; ?>">Delete Task</a>
                     <form method="POST" action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>">
                         <input type="hidden" name="task_id" value="<?php echo $task['id']; ?>">
+                        <input type="hidden" name="task_title" value="<?php echo $task['title']; ?>">
                         <input type="text" name="assigned_user" placeholder="Enter user to assign" required>
                         <button type="submit" name="assign_task">Assign the task to someone</button>
                     </form>
