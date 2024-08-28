@@ -116,6 +116,10 @@ if (isset($_GET['unassign_task'])) {
     $stmt->close();
 }
 
+if (isset($_GET['change_status'])){
+    echo "change status:";
+}
+
 // Retrieve all task lists for the user
 $query = "SELECT * FROM taskLists WHERE username='$username' ORDER BY timestamp DESC";
 $taskLists = mysqli_query($conn, $query);
@@ -154,6 +158,7 @@ $taskLists = mysqli_query($conn, $query);
         while ($task = mysqli_fetch_assoc($tasks)) { ?>
             <div class="task">
                 <p><?php echo $task['title']; ?> - <?php echo $task['status'] ?>
+                    <a href="?change_status=<?php echo $task['id']; ?>">Change Status</a>
                     <a href="?delete_task=<?php echo $task['id']; ?>">Delete Task</a>
                 <form method="POST" action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>">
                     <input type="hidden" name="task_id" value="<?php echo $task['id']; ?>">
@@ -174,7 +179,7 @@ $tasks = mysqli_query($conn, $query);
 while ($task = mysqli_fetch_assoc($tasks)) {
     ?>
     <div class="task">
-        <p><?php echo $task['title']; ?> - <?php echo $task['status'] ?>
+        <p><?php echo $task['title']; ?> - <?php echo $task['status'] ?> - by <?php echo $task['owner'];?>
             <a href="?unassign_task=<?php echo $task['id']; ?>">Leave Task</a>
         </p>
     </div>

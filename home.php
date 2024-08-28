@@ -53,9 +53,12 @@ if (!isset($_SESSION["username"])) {
         </form>
     </body>
 
-    <p>Manage your task list</p>
+    <p>Search</p>
+        <form action="results.php?search_query=" method="POST">
+            <button type="submit">Search</button>
+        </form>
+    <p></p>Manage your task list</p>
         <form action="tasks.php" method="POST">
-            <br>
             <button type="submit">Manage Tasks</button>
         </form>
 </html>
