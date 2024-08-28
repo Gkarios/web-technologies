@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add_task'])) {
     $stmt = $conn->prepare("INSERT INTO tasks (title, task_list_id, owner) VALUES (?, ?, ?)");
     $stmt->bind_param("sis", $taskTitle, $taskListId, $username);
     $stmt->execute();
+    $stmt->close();
 }
 
 // Handle deleting task list
@@ -41,6 +42,7 @@ if (isset($_GET['delete_task_list'])) {
     $stmt = $conn->prepare("DELETE FROM taskLists WHERE username=? AND task_list_id=?");
     $stmt->bind_param("si", $username, $taskList_id);
     $stmt->execute();
+    $stmt->close();
 
     // Also delete associated tasks
     $query = "DELETE FROM tasks WHERE task_list_id='$taskList_id'";
@@ -54,6 +56,7 @@ if (isset($_GET['delete_task'])) {
     $stmt = $conn->prepare("DELETE FROM tasks WHERE id=?");
     $stmt->bind_param("i", $task_id);
     $stmt->execute();
+    $stmt->close();
 }
 
 // Handle assigning task
@@ -110,15 +113,12 @@ if (isset($_GET['unassign_task'])) {
     $stmt = $conn->prepare("UPDATE tasks SET assigned=NULL WHERE id=?");
     $stmt->bind_param("i", $task_id);
     $stmt->execute();
+    $stmt->close();
 }
 
 // Retrieve all task lists for the user
-try {
-    $query = "SELECT * FROM taskLists WHERE username='$username' ORDER BY timestamp DESC";
-    $taskLists = mysqli_query($conn, $query);
-} catch (mysqli_sql_exception $e) {
-    echo "error idk";
-}
+$query = "SELECT * FROM taskLists WHERE username='$username' ORDER BY timestamp DESC";
+$taskLists = mysqli_query($conn, $query);
 ?>
 
 <!DOCTYPE html>
