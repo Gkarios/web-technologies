@@ -31,7 +31,7 @@ $stmt->close();
 
 // Fetch tasks assigned directly to the user
 $query = "
-    SELECT title 
+    SELECT title, owner
     FROM tasks 
     WHERE assigned = ? 
     ORDER BY timestamp DESC
@@ -83,9 +83,9 @@ if (!empty($taskLists)) {
             $taskAssigned = $taskList['assigned'] ?? '';
 
             $taskElement = $dom->createElement('Task', htmlspecialchars($taskTitle));
-            $taskElement->setAttribute("id", $taskList['id']);
-            $taskElement->setAttribute("status", htmlspecialchars($taskStatus));
-            $taskElement->setAttribute("assigned", htmlspecialchars($taskAssigned));
+            $taskElement->setAttribute('id', $taskList['id']);
+            $taskElement->setAttribute('status', htmlspecialchars($taskStatus));
+            $taskElement->setAttribute('assigned', htmlspecialchars($taskAssigned));
             $taskListElement->appendChild($taskElement);
         }
     }
@@ -98,6 +98,7 @@ if (!empty($assignedTasks)) {
 
     foreach ($assignedTasks as $task) {
         $taskElement = $dom->createElement('Task', htmlspecialchars($task['title']));
+        $taskElement->setAttribute('owner', $task['owner']);
         $assignedTasksElement->appendChild($taskElement);
     }
 }
