@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 25, 2024 at 09:52 PM
+-- Generation Time: Aug 28, 2024 at 08:42 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -44,11 +44,11 @@ INSERT INTO `taskLists` (`task_list_id`, `username`, `list_title`, `timestamp`) 
 (3, 'Jaywalk', 'ds', '2024-08-09 13:22:53'),
 (8, 'Espien123', 'language', '2024-08-25 13:31:41'),
 (10, 'Espien123', 'music', '2024-08-25 14:10:44'),
-(13, 'Espien123', 'Math', '2024-08-25 16:05:08'),
 (14, 'Gaddafi', 'Weapons Development', '2024-08-25 17:28:04'),
 (16, 'The Landlord', 'Finance', '2024-08-25 19:26:27'),
 (17, 'TC', 'Sleep', '2024-08-25 19:38:38'),
-(18, 'MetroGroomin', 'Music', '2024-08-25 19:46:25');
+(18, 'MetroGroomin', 'Music', '2024-08-25 19:46:25'),
+(19, 'Espien123', 'Math', '2024-08-28 11:10:14');
 
 -- --------------------------------------------------------
 
@@ -73,13 +73,14 @@ CREATE TABLE `tasks` (
 INSERT INTO `tasks` (`id`, `title`, `timestamp`, `status`, `task_list_id`, `owner`, `assigned`) VALUES
 (9, 'Violin', '2024-08-25 15:58:47', 'in progress', 10, 'Espien123', 'Anita Maxwin'),
 (10, 'Portugese', '2024-08-25 16:04:54', 'in progress', 8, 'Espien123', NULL),
-(11, 'Algebra', '2024-08-25 16:05:12', 'in progress', 13, 'Espien123', 'Anita Maxwin'),
-(12, 'Mandarin', '2024-08-25 16:06:37', 'in progress', 8, 'Espien123', '1'),
+(12, 'Mandarin', '2024-08-25 16:06:37', 'in progress', 8, 'Espien123', 'Jaywalk'),
 (14, 'Snow', '2024-08-25 17:37:41', 'in progress', 14, 'Gaddafi', NULL),
 (15, 'Drone R&D', '2024-08-25 17:37:51', 'in progress', 14, 'Gaddafi', NULL),
-(20, 'Stocks', '2024-08-25 19:26:29', 'in progress', 16, 'The Landlord', 'Espien123'),
+(20, 'Stocks', '2024-08-25 19:26:29', 'in progress', 16, 'The Landlord', NULL),
 (21, 'Dream', '2024-08-25 19:38:41', 'in progress', 17, 'TC', 'Espien123'),
-(23, 'rap', '2024-08-25 19:46:40', 'in progress', 18, 'MetroGroomin', 'NickM');
+(23, 'rap', '2024-08-25 19:46:40', 'in progress', 18, 'MetroGroomin', 'NickM'),
+(25, 'Geometry', '2024-08-28 11:10:24', 'in progress', 19, 'Espien123', 'Jaywalk'),
+(32, 'Crypto', '2024-08-28 15:27:11', 'in progress', 1, 'Jaywalk', 'Espien123');
 
 -- --------------------------------------------------------
 
@@ -177,13 +178,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `taskLists`
 --
 ALTER TABLE `taskLists`
-  MODIFY `task_list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `task_list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Constraints for dumped tables
