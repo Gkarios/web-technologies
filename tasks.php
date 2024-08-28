@@ -61,14 +61,23 @@ if (isset($_POST['assign_task'])){
     $task_title = $_POST['task_title'];
     
     //username check
-        $stmt = $conn->prepare("UPDATE tasks SET assigned=? WHERE owner=? AND id=?");
-        $stmt->bind_param("ssi", $assigned_user, $username, $task_id);
-        if ($stmt->execute()){
-            echo "Task assigned successfully.";
-        } else{
-            echo "database error" . $stmt->error;
-        }
-        $stmt->close();
+    $stmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
+    $stmt->bind_param("s", $assigned_user);
+    $stmt->execute();   
+    $stmt->bind_result($count);
+    $stmt->fetch();
+    $stmt->close();
+
+    if($count>0){
+    $stmt = $conn->prepare("UPDATE tasks SET assigned=? WHERE owner=? AND id=?");
+    $stmt->bind_param("ssi", $assigned_user, $username, $task_id);
+    if ($stmt->execute()) {
+        echo "Task assigned successfully.";
+    } else {
+        echo "database error" . $stmt->error;
+    }
+        
+    //send a SimplePush Key
     $sql = "SELECT simplepushkey FROM users WHERE username = '$assigned_user'";
     try {
         $result = mysqli_query($conn, $sql);
@@ -85,6 +94,9 @@ if (isset($_POST['assign_task'])){
         $message = "$username HAS ASSIGNED you with the task: $task_title";
         Simplepush::send($key, $title, $message);
     } 
+    } else{
+        echo "username not found";
+    }
 }
 
 // Handle unassigning task
@@ -114,7 +126,7 @@ $taskLists = mysqli_query($conn, $query);
     <button type="submit" name="new_task_list">Create New Task List</button>
 </form>
 
-<?php while ($taskList = mysqli_fetch_assoc($taskLists)) { ?>
+<?php while ($taskList = mysqli_fetch_assoc($taskLists))  { ?>
     <div class="task-list">
         <h2><?php echo $taskList['list_title']; ?>
             <a href="?delete_task_list=<?php echo $taskList['task_list_id']; ?>">Delete Task List</a>
