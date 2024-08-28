@@ -61,6 +61,10 @@ if (!isset($_SESSION["username"])) {
         <form action="tasks.php" method="POST">
             <button type="submit">Manage Tasks</button>
         </form>
+    <br>
+        <form action="export.php" method="POST">
+            <button type="submit">Export XML</button>
+        </form>
 </html>
 
 
