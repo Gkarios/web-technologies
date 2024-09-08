@@ -36,8 +36,8 @@ session_start();
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $firstName = filter_input(INPUT_POST, "firstName", FILTER_SANITIZE_STRING);
-    $lastName = filter_input(INPUT_POST, "lastName", FILTER_SANITIZE_STRING);
+    $firstName = filter_input(INPUT_POST, "firstName", FILTER_UNSAFE_RAW);
+    $lastName = filter_input(INPUT_POST, "lastName", FILTER_UNSAFE_RAW);
     $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
     $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
