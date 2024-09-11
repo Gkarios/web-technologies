@@ -129,47 +129,46 @@ function createTaskList(listName, taskList) {
   const newTaskBtn = document.createElement("button");
   const taskListHeader = document.createElement("div");
   const delList = document.createElement("span");
+  const collapseList = document.createElement("span");
   const plusSign = document.createElement("span");
   const textInBtn = document.createElement("span");
   const toDoTasks = document.createElement("div");
   const inProgTasks = document.createElement("div");
   const completedTasks = document.createElement("div");
-  const toDoCont = document.createElement("div");
-  const inProgCont = document.createElement("div");
-  const completedCont = document.createElement("div");
+  const unclassifiedTasks = document.createElement("div");
+
   const toDoHeader = document.createElement("h3");
   const inProgHeader = document.createElement("h3");
   const completedHeader = document.createElement("h3");
+  const unclassifiedHeader = document.createElement("h3");
   const toDoTogBtn = document.createElement("span");
   const inProgTogBtn = document.createElement("span");
   const completedTogBtn = document.createElement("span");
-
-  const lines = [];
-  for (let i = 0; i < 3; i++) {
-    const line = document.createElement("div");
-    line.classList.add("line");
-    lines.push(line);
-  }
+  const unclassifiedTogBtn = document.createElement("span");
 
   delList.textContent = "✖";
+  delList.classList.add("delListBtn");
   plusSign.textContent = "+";
   textInBtn.textContent = "Add a new task";
+  collapseList.classList.add("fa-solid", "fa-minimize", "collapseList");
   newTaskBtn.classList.add("newTaskBtn");
   taskListHeader.appendChild(listName);
+  taskListHeader.appendChild(collapseList);
   taskListHeader.appendChild(delList);
   taskListHeader.classList.add("taskListHeader");
   toDoHeader.textContent = "To Do";
   inProgHeader.textContent = "In Progress";
   completedHeader.textContent = "Completed";
-  toDoCont.classList.add("toDoWrap");
-  inProgCont.classList.add("inProgWrap");
-  completedCont.classList.add("completedWrap");
+  unclassifiedHeader.textContent = "Unclassified";
+
   toDoTasks.classList.add("toDoCont", "taskStateCont");
   inProgTasks.classList.add("inProgCont", "taskStateCont");
   completedTasks.classList.add("completedCont", "taskStateCont");
+  unclassifiedTasks.classList.add("unclassifiedCont", "taskStateCont");
   toDoTogBtn.classList.add("fa", "fa-angle-down", "toggleBtn");
   inProgTogBtn.classList.add("fa", "fa-angle-down", "toggleBtn");
   completedTogBtn.classList.add("fa", "fa-angle-down", "toggleBtn");
+  unclassifiedTogBtn.classList.add("fa", "fa-angle-down", "toggleBtn");
 
   let previousListName = listName.value;
 
@@ -178,26 +177,43 @@ function createTaskList(listName, taskList) {
   toDoHeader.appendChild(toDoTogBtn);
   inProgHeader.appendChild(inProgTogBtn);
   completedHeader.appendChild(completedTogBtn);
-  toDoCont.appendChild(toDoHeader);
-  inProgCont.appendChild(inProgHeader);
-  completedCont.appendChild(completedHeader);
-  toDoCont.appendChild(toDoTasks);
-  inProgCont.appendChild(inProgTasks);
-  completedCont.appendChild(completedTasks);
+  unclassifiedHeader.appendChild(unclassifiedTogBtn);
+  toDoTasks.appendChild(toDoHeader);
+  inProgTasks.appendChild(inProgHeader);
+  completedTasks.appendChild(completedHeader);
+  unclassifiedTasks.appendChild(unclassifiedHeader);
   taskList.appendChild(taskListHeader);
   taskList.appendChild(newTaskBtn);
-  //taskList.appendChild(delList);
-  taskList.insertBefore(toDoCont, newTaskBtn);
-  taskList.insertBefore(inProgCont, newTaskBtn);
-  taskList.insertBefore(completedCont, newTaskBtn);
-  taskList.insertBefore(lines[0], inProgCont);
-  taskList.insertBefore(lines[1], completedCont);
-  taskList.insertBefore(lines[2], newTaskBtn);
+  taskList.insertBefore(toDoTasks, newTaskBtn);
+  taskList.insertBefore(inProgTasks, newTaskBtn);
+  taskList.insertBefore(completedTasks, newTaskBtn);
+  taskList.insertBefore(unclassifiedTasks, newTaskBtn);
 
   listName.addEventListener("keydown", handleEnterList);
 
   delList.addEventListener("click", function () {
     showModal(taskList);
+  });
+
+  collapseList.addEventListener("click", () => {
+    let isCollapsed = collapseList.classList.contains("fa-maximize");
+    if (isCollapsed) {
+      collapseList.classList.remove("fa-maximize");
+      collapseList.classList.add("fa-minimize");
+    } else {
+      collapseList.classList.add("fa-maximize");
+      collapseList.classList.remove("fa-minimize");
+    }
+    const stateContainers = taskList.children;
+    for (let i = 1; i < stateContainers.length - 1; i++) {
+      if (isCollapsed) {
+        if (stateContainers[i].children.length > 1) {
+          stateContainers[i].style.display = "flex";
+        }
+      } else {
+        stateContainers[i].style.display = "none";
+      }
+    }
   });
 
   listName.addEventListener("change", () => {
@@ -216,24 +232,28 @@ function createTaskList(listName, taskList) {
 
   function toggleVisibility(e) {
     let correctToggle =
-      e.target.tagName == "SPAN" ? e.target : e.target.firstElementChild;
-    let isVisible =
-      correctToggle.parentElement.nextElementSibling.style.display == "flex";
-    correctToggle.parentElement.nextElementSibling.style.display = isVisible
-      ? "none"
-      : "flex";
+      e.target.tagName == "H3" ? e.target : e.target.parentElement;
+    const toggleArrow = correctToggle.children[0];
+    const stateContTasks = correctToggle.parentElement.children;
+    let isVisible = toggleArrow.classList.contains("fa-angle-up");
+
+    for (let i = 1; i < stateContTasks.length; i++) {
+      stateContTasks[i].style.display = isVisible ? "none" : "flex";
+    }
+
     if (isVisible) {
-      correctToggle.classList.add("fa-angle-down");
-      correctToggle.classList.remove("fa-angle-up");
+      toggleArrow.classList.add("fa-angle-down");
+      toggleArrow.classList.remove("fa-angle-up");
     } else {
-      correctToggle.classList.add("fa-angle-up");
-      correctToggle.classList.remove("fa-angle-down");
+      toggleArrow.classList.add("fa-angle-up");
+      toggleArrow.classList.remove("fa-angle-down");
     }
   }
 
   toDoHeader.addEventListener("click", toggleVisibility);
   inProgHeader.addEventListener("click", toggleVisibility);
   completedHeader.addEventListener("click", toggleVisibility);
+  unclassifiedHeader.addEventListener("click", toggleVisibility);
 
   newTaskBtn.addEventListener("click", () => {
     newTaskBtn.setAttribute("style", "display:none;");
@@ -243,6 +263,8 @@ function createTaskList(listName, taskList) {
     const confirmTask = document.createElement("button");
     const cancelTask = document.createElement("button");
     const taskName = document.createElement("textarea");
+    const line = document.createElement("div");
+    line.classList.add("line2");
     taskName.classList.add("taskName");
     confirmTask.textContent = "Add Task";
     cancelTask.textContent = "Cancel";
@@ -255,6 +277,13 @@ function createTaskList(listName, taskList) {
     taskContainer.classList.add("taskContainer");
     task.classList.add("task");
     taskList.insertBefore(taskContainer, newTaskBtn);
+    let isListNotEmpty =
+      toDoTasks.style.display == "flex" ||
+      inProgTasks.style.display == "flex" ||
+      completedTasks.style.display == "flex";
+    if (unclassifiedTasks.children.length == 1 && isListNotEmpty) {
+      taskList.insertBefore(line, unclassifiedTasks);
+    }
 
     fixTextArea(taskName);
 
@@ -269,9 +298,7 @@ function createTaskList(listName, taskList) {
     cancelTask.addEventListener("mousedown", handleCancel);
 
     function handleBlur() {
-      if (this.value.trim() == "") {
-        taskContainer.remove();
-      } else {
+      if (this.value.trim() != "") {
         createTask(
           taskList,
           newTaskBtn,
@@ -282,11 +309,14 @@ function createTaskList(listName, taskList) {
           completedTasks,
           toDoTogBtn,
           inProgTogBtn,
-          completedTogBtn
+          completedTogBtn,
+          unclassifiedTasks,
+          unclassifiedTogBtn
         );
-        btnWrapper.remove();
-        taskContainer.remove();
       }
+      btnWrapper.remove();
+      taskContainer.remove();
+      line.remove();
       taskName.removeEventListener("blur", handleBlur);
       newTaskBtn.setAttribute("style", "display:inline-block;");
     }
@@ -302,6 +332,7 @@ function createTaskList(listName, taskList) {
       e.preventDefault();
       taskName.removeEventListener("blur", handleBlur);
       taskContainer.remove();
+      line.remove();
       newTaskBtn.setAttribute("style", "display:inline-block;");
     }
   });
@@ -314,10 +345,12 @@ function createTask(
   taskName,
   toDoTasks,
   inProgTasks,
-  doneTasks,
+  completedTasks,
   toDoTogBtn,
   inProgTogBtn,
-  doneTogBtn
+  doneTogBtn,
+  unclassifiedTasks,
+  unclassifiedTogBtn
 ) {
   const viewTaskOptions = document.createElement("span");
   viewTaskOptions.textContent = "⋮";
@@ -340,8 +373,8 @@ function createTask(
   const currentStateSelector = document.createElement("span");
   let currentdate = new Date().getTime();
   let previousTaskName = taskName.value;
-  task.parentElement.setAttribute("data-date", currentdate);
 
+  task.setAttribute("data-date", currentdate);
   stateToggleBtn.classList.add("fa", "fa-angle-down", "toggleBtn");
   line.classList.add("line");
   line2.classList.add("line");
@@ -377,9 +410,28 @@ function createTask(
   taskOptions.appendChild(searchContainer);
   taskOptions.classList.add("taskOptions");
   task.appendChild(taskOptions);
-  taskList.insertBefore(task, newTaskBtn);
-
-  handleMouseover();
+  unclassifiedTasks.appendChild(task);
+  unclassifiedTasks.style.display = "flex";
+  unclassifiedTogBtn.classList.add("fa-angle-up");
+  unclassifiedTogBtn.classList.remove("fa-angle-down");
+  const unclTasks = Array.from(unclassifiedTasks.children);
+  unclTasks.sort((a, b) => {
+    return b.dataset.date - a.dataset.date;
+  });
+  unclTasks.forEach((task) => {
+    if (task.tagName != "H3") {
+      task.style.display = "flex";
+    }
+  });
+  let collapseBtn = taskList.querySelector("span");
+  let isListEmpty =
+    toDoTasks.style.display != "flex" &&
+    inProgTasks.style.display != "flex" &&
+    completedTasks.style.display != "flex";
+  if(isListEmpty && taskList.querySelector(".fa-maximize")!=null){
+    collapseBtn.classList.replace("fa-maximize", "fa-minimize");
+  }
+  unclassifiedTasks.append(...unclTasks);
 
   task.addEventListener("mouseover", handleMouseover);
 
@@ -400,6 +452,9 @@ function createTask(
   function setState(e, stateCont, togBtn, color) {
     task.style.borderColor = color;
     currentColor = color;
+    if (task.parentElement.children.length == 2) {
+      task.parentElement.style.display = "none";
+    }
     stateCont.appendChild(task);
     stateCont.style.display = "flex";
     togBtn.classList.add("fa-angle-up");
@@ -436,7 +491,10 @@ function createTask(
     viewTaskOptions.style.visibility = "visible";
     const allMenus = document.querySelectorAll(".taskOptions");
     allMenus.forEach((menu) => {
-      if ((menu.style.display != "none" && menu != taskOptions) || (menu.style.display == "none" && menu == taskOptions)) {
+      if (
+        (menu.style.display != "none" && menu != taskOptions) ||
+        (menu.style.display == "none" && menu == taskOptions)
+      ) {
         task.addEventListener("mouseout", handleMouseout);
       }
     });
@@ -505,6 +563,9 @@ function createTask(
   });
 
   delTask.addEventListener("click", () => {
+    if (task.parentElement.children.length == 2) {
+      task.parentElement.style.display = "none";
+    }
     task.remove();
   });
 
@@ -529,7 +590,7 @@ function createTask(
   });
 
   completed.addEventListener("click", (e) => {
-    setState(e, doneTasks, doneTogBtn, "green");
+    setState(e, completedTasks, doneTogBtn, "green");
   });
 
   assignToUser.addEventListener("click", () => {
