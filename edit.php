@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['simplepushKey'] = $simplepushKey;
                     $_SESSION['update_success'] = "Information updated successfully.";
 
-                    header("Location: home.php");
+                    header("Location: index.php");
                 } else {
                     echo "Error updating user details: " . $stmt->error;
                 }
@@ -111,7 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else if ($action == "cancel") {
         // If HTTP_REFERER is not set, redirect to a default page
         echo "CANCEL";
-        header("Location: home.php");
+        header("Location: index.php");
         exit;
     } else if ($action == "delete") {
         if (password_verify($password, $user['password'])){
