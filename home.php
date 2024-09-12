@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Trello</title>
-    </head>
+    <link rel="stylesheet" href="/trello/css/homepage.css"/>
 </html>
 
 <?php
@@ -14,76 +13,56 @@ include ("header.html");
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-echo "HOME PAGE <br>";
 
 if (!isset($_SESSION["username"])) {
-    echo "You are not logged in <br>";
-
-
     ?>
     <!DOCTYPE html>
     <html lang="en">
 
     <body>
+    <div class="mid-section">
+      <img src="images/done.png" class="tasklist" />
+      <div class="mid-txt">
+        <h1>
+          Organize projects<br />and collaborate<br />with ease and efficiency
+        </h1>
+        <p>
+          Effortlessly manage projects from start to finish,<br />
+          streamline tasks, and keep your team aligned,<br />
+          all while staying on top of deadlines and goals.
+        </p>
+        <form action="signup.php" method="POST">
+        <button class="start">Get Started</button>
+</form>
+      </div>
+      <img src="images/business-network.png" class="team" />
+      <div class="frame"><img src="images/woman.png" class="person" /></div>
+      <img src="images/to-do-list.png" class="tasklist2" />
+    </div>
+      <div class="accountBtns">
+        <h1>Already have an account?</h1>
         <form action="login.php" method="POST">
-            <br>
-            <button type="submit">Log In</button>
-        </form>
+        <button class="acc">Log in</button>
+</form>
+      </div>
     </body>
 
     </html>
 
     <?php
 } else {
-    echo "Welcome, " . $_SESSION['username'] . "<br> <br>";
+    echo "<h2 style='font-size: 24px; border-color: #007bff; color: #fff; border: 1px solid $007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;'>Welcome, " . $_SESSION['username'] . "</h2>";
     if (isset($_SESSION['update_success'])) {
         echo "<h1>" . $_SESSION['update_success'] . "</h1>";
         // Clear the success message to prevent it from displaying on subsequent visits
         unset($_SESSION['update_success']);
     }
-
-    echo "Edit your account: "
-    ?>
-
-        <html lang="en">
-    <body>
-        <form action="edit.php" method="POST">
-            <br>
-            <button type="submit">Edit</button>
-        </form>
-    </body>
-
-    <p>Search</p>
-        <form action="results.php?search_query=" method="POST">
-            <button type="submit">Search</button>
-        </form>
-    </p>Manage your task list</p>
-        <form action="tasks.php" method="POST">
-            <button type="submit">Manage Tasks</button>
-        </form>
-    <br>
-        <form action="export.php" method="POST">
-            <button type="submit">Export XML</button>
-        </form>
+        ?>
+<html>
+    <a style='font-size:24px; font-weight:bold; background-color: #007bff; color: #fff; border: 1px solid #007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;' href="/trello/edit.php">Edit your account</a>
+    <a style='font-size:24px; font-weight:bold; background-color: #007bff; color: #fff; border: 1px solid #007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;' href="/trello/results.php">Manage your tasks</a>
+    <a style='font-size:24px; font-weight:bold; background-color: #007bff; color: #fff; border: 1px solid #007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;' href="/trello/export.php">Export to XML</a>
+    <a style='font-size:24px; font-weight:bold; background-color: #007bff; color: #fff; border: 1px solid #007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;' href="/trello/logout.php">Log out</a>
 </html>
-
-
-    <!DOCTYPE html>
-    <html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login</title>
-    </head>
-
-    <body>
-        <form action="logout.php" method="POST">
-            <br>
-            <button type="submit">Logout</button>
-        </form>
-    </body>
-
-    </html>
 <?php
 }?>

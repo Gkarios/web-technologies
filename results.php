@@ -1,5 +1,6 @@
 <?php
 include("database.php");
+include("header.html");
 
 session_start();
 

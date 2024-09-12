@@ -1,4 +1,98 @@
-<header>
-    <a href="home.php">Home</a>
-</header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Header Example</title>
+    <style>
+        /* Main header styles */
+#main-header {
+    background-color: #333;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
 
+/* Header container */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 1200px;
+}
+
+/* Logo styles */
+.logo h1 {
+    margin: 0;
+    font-size: 24px;
+    font-family: 'Times New Roman', serif;
+}
+        
+.logo h1 a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Navigation styles */
+.nav-links ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+}
+
+.nav-links ul li {
+    display: inline-block;
+}
+
+.nav-links ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+}
+
+.nav-links ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Content padding so it's not covered by the fixed header */
+.content {
+    padding-top: 70px; /* Adjust based on the header height */
+    margin: 0 20px;
+            
+}
+
+
+    </style>
+</head>
+<body>
+    <header id="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <h1><a href="/trello/home.php">Trello</a></h1>
+            </div>
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="/trello/home.php">Home</a></li>
+                    <li><a href="/trello/results.php?search_query=" method="POST">Your Tasks</a>
+                    <li><a href="/trello/info/help.php">Help</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="content">
+        <p></p>
+    </div>
+
+</body>
+</html>
