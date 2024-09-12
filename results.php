@@ -81,7 +81,6 @@ if ($noMainTask == true && $noAssignedTask == true) {
 
 <body>
     <header>
-        <a href="home.php">Home</a>
         <a href="tasks.php">Edit Tasks</a>
     </header>
     <form method="GET">
