@@ -42,7 +42,7 @@ if (!isset($_SESSION["username"])) {
       <div class="accountBtns">
         <h1>Already have an account?</h1>
         <form action="login.php" method="POST">
-        <button class="acc">Log in</button>
+        <button class="acc" style="font-size:34px;">Log in</button>
 </form>
       </div>
     </body>
