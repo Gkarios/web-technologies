@@ -10,33 +10,12 @@ body {
     gap: 100px;
   }
 
-.header {
-  display: flex;
-  justify-content: space-around;
-  background-color: inherit;
-  margin-top: 2%;
-}
-
-.nav-links {
-  display: flex;
-  gap: 10px;
-}
-
 a {
   text-decoration: none;
 }
 
 button{
     cursor: pointer;
-}
-
-.acc {
-  border-radius: 15px;
-  border: 2px solid rgb(241, 235, 235);
-  background-color: inherit;
-  padding-inline: 10px;
-  padding-block: 5px;
-  margin-left: 10px;
 }
 
 .mid-section {

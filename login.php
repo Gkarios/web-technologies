@@ -10,6 +10,7 @@ include ("header.html");
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
+        <link rel="stylesheet" href="/trello/css/form.css" />
     </head>
     <body>
     <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="POST">
@@ -19,7 +20,8 @@ include ("header.html");
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password" required>
         <br>
-        <input type="submit" value="Login">
+        <br>
+        <input type="submit" name="login" value="Login">
         <br>
     </form>
     </body>
@@ -28,7 +30,7 @@ include ("header.html");
 
 <?php
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -59,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     } else {
         // User not found
-        echo "Username not found!";
+        echo '<div class="statusMessage">Username not found</div>';
     }
 
     // Close the statement

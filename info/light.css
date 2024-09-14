@@ -1,9 +1,11 @@
 * {
   box-sizing: border-box;
+  color: pink;
 }
 
 html,body {
   display: flex;
+  background: linear-gradient(135deg, #2a0dcf, #3d3c3c);
   height: 100%;
   justify-content: center;
   align-items: center;

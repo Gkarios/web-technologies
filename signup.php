@@ -10,10 +10,8 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>SIGN UP</title>
+    <link rel="stylesheet" href="/trello/css/form.css" />
 </head>
-    <body>
-        <h2>WELCOME TO TRELLO RIPOFF</h2>
-</body>
 <body>
     <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
         first name:<br>
@@ -26,16 +24,15 @@ session_start();
         <input type="password" name="password"><br>
         email:<br>
         <input type="email" name="email"><br>
-        simplepush.io key<br>
-        <input type="text" name="simplepushKey"><br>
-        <input type="submit" name="signup" value="sign up">
-            <br>
+        notification key:<br>
+        <input type="text" name="simplepushKey"><br><br>
+        <input type="submit" name="signup" value="Sign up">
     </form>
 </body>
 </html>
 
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
     $firstName = filter_input(INPUT_POST, "firstName", FILTER_UNSAFE_RAW);
     $lastName = filter_input(INPUT_POST, "lastName", FILTER_UNSAFE_RAW);
     $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -44,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $simplepushKey = filter_input(INPUT_POST, "simplepushKey", FILTER_SANITIZE_SPECIAL_CHARS);
 
     if (empty($username) || empty($password) || empty($firstName) || empty($lastName) || empty($email)) {
-        echo "Please fill in all the required boxes!";
+        echo '<div class="statusMessage">Please fill in all the required boxes</div>';
     } else {
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO users (firstName, lastName, username, password, email, simplepushKey) VALUES ('$firstName', '$lastName', '$username', '$passwordHash', '$email', '$simplepushKey')";
@@ -72,7 +69,6 @@ mysqli_close($conn);
 <html>
     <body>
         <form action="login.php" method="POST">
-            <br><br>
             <p>Already have an account?</p> 
             <input type="submit" value="Log In">
         </form>
