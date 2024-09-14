@@ -82,8 +82,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
         $simplepushKey = filter_input(INPUT_POST, "simplepushKey", FILTER_SANITIZE_SPECIAL_CHARS);
 
-        if (empty($username) || empty($password) || empty($firstName) || empty($lastName) || empty($email)) {
+        if (empty($username)  || empty($firstName) || empty($lastName) || empty($email)) {
             echo '<div class="statusMessage">Please fill in all the required boxes!</div>';
+        } else if (empty($password)){
+                echo '<div class="statusMessage">Please fill in the password</div>';
         } else {
             if (password_verify($password, $user['password'])) {
                 $passwordHash = "";
@@ -139,7 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 header("Location: index.php");
             } else {
-                echo "Incorrect password!";
+            echo '<div class="statusMessage">Incorrect password</div>';
             }
         }
     } else if ($action == "cancel") {
@@ -195,7 +197,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: logout.php");
             exit;
         } else {
-            echo '<div class="statusMessage">Error verifying password</div>';
+            if (!empty($password)){
+            echo '<div class="statusMessage">Incorrect password</div>';
+            } else{
+                echo '<div class="statusMessage">Please fill in the password</div>';
+            }
         }
     } else {
         "error in stmt" . $stmt->error;

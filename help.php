@@ -1,4 +1,4 @@
-<?php include ("../header.html");
+<?php include ("header.html");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +6,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="light.css" />
+    <link rel="stylesheet" href="/trello/css/light.css" />
   </head>
   <body>
     <div id="container">
