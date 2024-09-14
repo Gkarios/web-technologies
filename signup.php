@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
             $_SESSION['firstName'] = $firstName;
             $_SESSION['lastName'] = $lastName;
             $_SESSION['simplepushKey'] = $simplepushKey;
-            header("Location: home.php");
+            header("Location: index.php");
             exit;
         } catch (mysqli_sql_exception $e) {
             echo "THAT USERNAME HAS BEEN TAKEN B.";

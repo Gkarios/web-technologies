@@ -42,7 +42,7 @@ if (!isset($_SESSION["username"])) {
       <div class="accountBtns">
         <h1>Already have an account?</h1>
         <form action="login.php" method="POST">
-        <button class="acc" style="font-size:34px;">Log in</button>
+        <button style="font-size:34px; background-color: #1451e0">Log in</button>
 </form>
       </div>
     </body>
@@ -53,7 +53,7 @@ if (!isset($_SESSION["username"])) {
 } else {
     echo "<h2 style='font-size: 24px; border-color: #007bff; color: #fff; border: 1px solid $007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;'>Welcome, " . $_SESSION['username'] . "</h2>";
     if (isset($_SESSION['update_success'])) {
-        echo "<h1>" . $_SESSION['update_success'] . "</h1>";
+        echo "<h2>" . $_SESSION['update_success'] . "</h2>";
         // Clear the success message to prevent it from displaying on subsequent visits
         unset($_SESSION['update_success']);
     }

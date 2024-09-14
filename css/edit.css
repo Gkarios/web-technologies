@@ -22,7 +22,7 @@ body {
 }
 
 form {
-    max-width: 600px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -35,11 +35,14 @@ input {
 
 input[type="text"],
 input[type="password"],
-input[type="email"],
 input[type="submit"] {
     color: black;
     width: 100%;
     max-width: 300px;
+}
+
+input[name="action"]{
+    background-color:#c6e1ff;
 }
 
 input[type="submit"]{
@@ -55,6 +58,18 @@ input[type="submit"]{
     margin: 20px auto;
     font-size: 36px;
     color: red;
+    z-index: 1000;
+    font: helvetica;
+}
+
+h2{
+    position: absolute;
+    top: 100px; /* Adjust based on where you want it to appear */
+            left: 14%; /* Center horizontally */
+            transform: translateX(-50%); /* Adjust to center the message */
+    text-align: center;
+    margin: 20px auto;
+    font-size: 36px;
     z-index: 1000;
     font: helvetica;
 }
