@@ -38,8 +38,8 @@ if (!isset($_SESSION['username'])) {
     <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($_SESSION['email']); ?>" required>
     <br><br>
     <label for="simplepushKey">Simplepush.io key:</label>
-    <input type="password" id="simplepushKey" name="simplepushKey"
-        value="<?php echo htmlspecialchars($_SESSION['simplepushKey']); ?>">
+    <input type="text" id="simplepushKey" name="simplepushKey"
+        value="<?php if (isset($_SESSION['simplepushKey'])) {echo htmlspecialchars($_SESSION['simplepushKey']); }?>">
     <br><br>
     <label for="passwordNew">(Optional) Make a new password:</label>
     <input type="password" id="passwordNew" name="passwordNew">
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $simplepushKey = filter_input(INPUT_POST, "simplepushKey", FILTER_SANITIZE_SPECIAL_CHARS);
 
         if (empty($username) || empty($password) || empty($firstName) || empty($lastName) || empty($email)) {
-            echo "Please fill in all the required boxes!";
+            echo '<div class="statusMessage">Please fill in all the required boxes!</div>';
         } else {
             if (password_verify($password, $user['password'])) {
                 $passwordHash = "";
@@ -111,6 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $stmt4 = $conn->prepare("UPDATE users SET firstName = ?, lastName = ?, username = ?, password = ?, email = ?, simplepushKey = ? WHERE username = ?");
                     $stmt4->bind_param("sssssss", $firstName, $lastName, $usernameNew, $passwordHash, $email, $simplepushKey, $username);
                     $stmt4->execute();
+
                     // Commit the transaction if everything succeeds
                     $conn->commit();
                 } catch (Exception $e) {
@@ -151,38 +152,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $randomWords = [];
             $wordNum = 5;
             for ($i = 0; $i < $wordNum; $i++) {
-                $randomWords[] = getRandomWord();
+                $randomWords[$i] = getRandomWord();
             }
             $randomPass = password_hash($randomWords[3], PASSWORD_DEFAULT);
+            $conn->begin_transaction();
+            try {
 
-            // Transform all tasks of the user, to be appointed to the new randomized username
-            $stmt = $conn->prepare("UPDATE tasks, taskLists SET owner = ?, username = ? WHERE username = ? AND UPDATE tasks SET assigned = ? WHERE assigned = ?");
-            $stmt->bind_param("sssss", $randomWords[2], $randomWords[2], $username, $randomWords[2], $username);
+                $stmt1 = $conn->prepare("UPDATE tasks SET owner = ? WHERE owner = ?");
+                $stmt1->bind_param("ss", $randomWords[2], $username);
+                $stmt1->execute();
 
-            if ($stmt->execute()) {
-                // Prepare the SQL statement to update the user with random values
-                $stmt = $conn->prepare("UPDATE users SET firstName = ?, lastName = ?, username = ?, password = ?, email = ? WHERE username = ?");
-                $stmt->bind_param("ssssss", $randomWords[0], $randomWords[1], $randomWords[2], $randomPass, $randomWords[4], $username);
+                $stmt3 = $conn->prepare("UPDATE tasks SET assigned = ? WHERE assigned = ?");
+                $stmt3->bind_param("ss", $randomWords[2], $username);
+                $stmt3->execute();
 
-                if ($stmt->execute()) {
-                    echo "User details updated successfully.";
+                $stmt2 = $conn->prepare("UPDATE taskLists SET username = ? WHERE username = ?");
+                $stmt2->bind_param("ss", $randomWords[2], $username);
+                $stmt2->execute();
 
-                    // Update the session variables with new values
-                    header("Location: logout.php");
-                    exit;
-                } else {
-                    echo "Error updating user details: " . $stmt->error;
-                }
-            } else {
-                "error in FK" . $stmt->error;
+                $randomWords[4] = $randomWords[4] . "@" . getRandomWord();
+                $null = null;
+                $stmt4 = $conn->prepare("UPDATE users SET firstName = ?, lastName = ?, username = ?, password = ?, email = ?, simplepushKey = ? WHERE username = ?");
+                $stmt4->bind_param("sssssss", $randomWords[0], $randomWords[1], $randomWords[2], $randomPass, $randomWords[4], $null, $username);
+                $stmt4->execute();
+                // Commit the transaction if everything succeeds
+                $conn->commit();
+            } catch (Exception $e) {
+                // Rollback transaction on error
+                $conn->rollback();
+                echo "Failed to update tasks: " . $e->getMessage();
             }
-            $stmt->close();
-            $conn->close();
+            if (isset($stmt1))
+                $stmt1->close();
+            if (isset($stmt2))
+                $stmt2->close();
+            if (isset($stmt3))
+                $stmt3->close();
+            if (isset($stmt4))
+                $stmt4->close();
 
+            // Update the session variables with new values
+            header("Location: logout.php");
+            exit;
         } else {
-            echo "Incorrect password!";
+            echo '<div class="statusMessage">Error verifying password</div>';
         }
+    } else {
+        "error in stmt" . $stmt->error;
     }
+    $stmt->close();
+    $conn->close();
 }
 
 
