@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Aug 28, 2024 at 08:42 PM
+-- Generation Time: Sep 15, 2024 at 09:41 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,7 +48,8 @@ INSERT INTO `taskLists` (`task_list_id`, `username`, `list_title`, `timestamp`) 
 (16, 'The Landlord', 'Finance', '2024-08-25 19:26:27'),
 (17, 'TC', 'Sleep', '2024-08-25 19:38:38'),
 (18, 'MetroGroomin', 'Music', '2024-08-25 19:46:25'),
-(19, 'Espien123', 'Math', '2024-08-28 11:10:14');
+(19, 'Espien123', 'Math', '2024-08-28 11:10:14'),
+(22, 'PolishNa', 'Polish', '2024-09-14 16:16:12');
 
 -- --------------------------------------------------------
 
@@ -80,7 +81,8 @@ INSERT INTO `tasks` (`id`, `title`, `timestamp`, `status`, `task_list_id`, `owne
 (21, 'Dream', '2024-08-25 19:38:41', 'in progress', 17, 'TC', 'Espien123'),
 (23, 'rap', '2024-08-25 19:46:40', 'in progress', 18, 'MetroGroomin', 'NickM'),
 (25, 'Geometry', '2024-08-28 11:10:24', 'in progress', 19, 'Espien123', 'Jaywalk'),
-(32, 'Crypto', '2024-08-28 15:27:11', 'in progress', 1, 'Jaywalk', 'Espien123');
+(32, 'Crypto', '2024-08-28 15:27:11', 'in progress', 1, 'Jaywalk', 'Espien123'),
+(33, 'Alphabet', '2024-09-14 16:16:14', 'in progress', 22, 'PolishNa', NULL);
 
 -- --------------------------------------------------------
 
@@ -102,12 +104,14 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`firstName`, `lastName`, `username`, `password`, `email`, `simplepushKey`) VALUES
+('Alex', 'Hamilton', 'Ally1', '$2y$10$wy3mP00sk4bFQbyOJ33fSu5DOCkKCVhLr76hKfeFNueU1QD6Py2hK', 'Alex@yahoomail.com', NULL),
 ('Anita', 'Max Wynn', 'Anita Maxwin', '$2y$10$aE441V0O1lPOJ6JtSad1s.RD8MjPKt19gUp8X9XqSspS/9v/4OdDa', 'AMax@gmail.com', 'wsDTzJ'),
 ('culprit', 'fascistically', 'cory', '$2y$10$KxRAvNY3l0CoOle7KAkXaejXfBONwcrpICaGxqZUe7CCCYd9ydME2', 'sclerosis', NULL),
 ('Darius', 'Jackson', 'DJ ignite', '$2y$10$yMDZ7lOOzwXKrjtFyfJkDu/CxJwVNhPtMY9JMYHlesHuWI8O4TPIS', 'perseverance@gmail.com', NULL),
 ('Aubrey', 'Graham', 'Dropper', '$2y$10$GFNl1Mvmy97F4ZnFoYypH.ow0KbCkYpTEF9yGPVh3gNDNp9E0CXlq', 'Aubrey43434@gmail.com', NULL),
 ('prevue', 'lurkingly', 'enlarges', '$2y$10$5Q7/ZbY2dJP95VQnbTSOpuqszsCAPoVbKgHCxUYqtLQ8nsbrCpMry', 'disestablished', NULL),
 ('Sarah', 'Jones', 'Espien123', '$2y$10$7tiDPpkEIT5XoqVV1cAmEOvdTuJONn0.oexGB7/yKl2AKblvP/3Jm', 'SarahJJ56@gmail.com', NULL),
+('didynamies', 'paseo', 'fatwood', '$2y$10$3PYKa/mcfAmageRFTMlVr.7bp4EpTdLmZ2Vq5EEpIgalivFBA.cgy', 'mistitles@nutwood', NULL),
 ('Ø§Ù„Ù‚Ø°Ø§ÙÙŠ', 'Ù…Ø¹Ù…Ø±', 'Gaddafi', '$2y$10$FpT5XesiIsIdlkZ9ZDQijur/9kJjkGbeTF3kUqDrojaKSo58yFsCa', 'gad@gmail.com', NULL),
 ('Jay', 'Walker', 'Jaywalk', '$2y$10$cO.NKEoLekD8no2e/RnoKOQDEyir.PM9hj6MdJsyg.R0VR9XaPFdW', 'JayWalker@gmail.com', NULL),
 ('Leon', 'Jones', 'LeeJ', '$2y$10$xtNrahQ2bpGsVd8YSxZJ6O301No50AZmCxk6bFg4njlgyZ8Yf3Gf.', 'LeeJones@gmail.com', 'G8f3jF'),
@@ -115,7 +119,10 @@ INSERT INTO `users` (`firstName`, `lastName`, `username`, `password`, `email`, `
 ('Metro', 'Boomin', 'MetroGroomin', '$2y$10$VZYvBC7eOXNpT3YjJ7I3seL8IFpVn9d1p3zreM9MUpnP6pSGaHvr.', 'Metroooo@gmail.com', NULL),
 ('Stephan', 'Borelli', 'Mr. Borelli', '$2y$10$pGNgdSD2wECX3V9kEuI12uPpPg0I1yhAm9mY2bSa9rJf2YqJgnb2O', 'stevenbonnell@gmail.com', NULL),
 ('James', 'Brown', 'Mr. Brown', '$2y$10$iWlSF2C9kaVmbIOLkSFAqOoatKXXalKoz31wte3wVBC3oUTwIqxmi', 'JB@gmail.com', NULL),
+('sunny', 'ironmasters', 'nation', '$2y$10$CreGvF7ZtuwzD1DxIxjlLORy5pW14l8iy1U7iISKtidhfl4K0808m', 'light', NULL),
 ('Nick', 'm', 'NickM', '$2y$10$sggzLgN72/nKJeDHlujRuepUG/5.6elRutRd7yKkV0eU7b1vW4aoq', 'n@gmail.com', '8JbxPv'),
+('Steinersss', 'Gatezzz', 'Okabe sans', '$2y$10$10kIN.ALKUs6Ltz.CMoaZ.eeOqnjrQ4YJ/ebOc1HJSXeK8OW81Viu', 'cern@gmail', NULL),
+('Naku', 'Poll', 'PolishNa', '$2y$10$5KQFPIUay3C8tSGZ1nPS/Ov7e4HphnbTX0F3rA9RbS.sVxq19j1S6', 'PP@gmail.com', NULL),
 ('heterotrophs', 'stutterer', 'supercar', '$2y$10$mNZosPc7LGMb4RU6SQpHMOcQRr9ekIoZRiIb75kEZcG5MNMpdCb3.', 'mestino', NULL),
 ('provider', 'wovens', 'supernatants', '$2y$10$3OGKh1UoKXLig14mXu1dZe9FfVyWMwEGANjKkOXYYbWZxSLXOkgji', 'veneration', NULL),
 ('Tom', 'Clancy', 'TC', '$2y$10$h1d9tww5RvMX13nbF7Ui1OWoWF9rkAJ3zxkqlmnPdv7W0N1YoKgne', 'Tom@gmail.com', 'wdDTzJ'),
@@ -160,7 +167,8 @@ ALTER TABLE `taskLists`
 ALTER TABLE `tasks`
   ADD PRIMARY KEY (`id`),
   ADD KEY `task_list_id` (`task_list_id`),
-  ADD KEY `fk_owner` (`owner`);
+  ADD KEY `fk_owner` (`owner`),
+  ADD KEY `fk_assigned` (`assigned`);
 
 --
 -- Indexes for table `users`
@@ -178,13 +186,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `taskLists`
 --
 ALTER TABLE `taskLists`
-  MODIFY `task_list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `task_list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Constraints for dumped tables
