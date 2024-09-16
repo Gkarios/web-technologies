@@ -8,7 +8,7 @@
 
 <?php
 session_start();
-include ("database.php");
+include ("backend/database.php");
 include ("header.html");
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -61,7 +61,7 @@ if (!isset($_SESSION["username"])) {
 <html>
     <a style='font-size:24px; font-weight:bold; background-color: #007bff; color: #fff; border: 1px solid #007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;' href="/trello/edit.php">Edit your account</a>
     <a style='font-size:24px; font-weight:bold; background-color: #007bff; color: #fff; border: 1px solid #007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;' href="/trello/tasks.php">Manage your tasks</a>
-    <a style='font-size:24px; font-weight:bold; background-color: #007bff; color: #fff; border: 1px solid #007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;' href="/trello/export.php">Export to XML</a>
+    <a style='font-size:24px; font-weight:bold; background-color: #007bff; color: #fff; border: 1px solid #007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;' href="/trello/backend/export.php">Export to XML</a>
     <a style='font-size:24px; font-weight:bold; background-color: #007bff; color: #fff; border: 1px solid #007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;' href="/trello/logout.php">Log out</a>
 </html>
 <?php

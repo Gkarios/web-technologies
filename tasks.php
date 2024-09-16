@@ -1,7 +1,7 @@
 <?php
-include("database.php");
+include("backend/database.php");
 include("header.html");
-include("Simplepush.php");
+include("backend/Simplepush.php");
 session_start();
 
 error_reporting(E_ALL);
@@ -77,9 +77,9 @@ if (isset($_POST['assign_task'])) {
         $stmt = $conn->prepare("UPDATE tasks SET assigned=? WHERE owner=? AND id=?");
         $stmt->bind_param("ssi", $assigned_user, $username, $task_id);
         if ($stmt->execute()) {
-            echo "Task assigned successfully.";
+            echo "<div class='statusMessage'>Task assigned successfully.</div>";
         } else {
-            echo "database error" . $stmt->error;
+            echo "<div class='statusMessage'>database error" . $stmt->error . "</div>";
         }
         $stmt->close();
 
@@ -102,7 +102,7 @@ if (isset($_POST['assign_task'])) {
             Simplepush::send($key, $title, $message);
         }
     } else {
-        echo "username not found";
+        echo "<div class='statusMessage'>username not found</div>";
     }
 }
 
@@ -130,8 +130,11 @@ $taskLists = mysqli_query($conn, $query);
 
 <head>
     <title>Manage Your Task Lists</title>
+    <link rel="stylesheet" href="css/results.css"/>
 </head>
-<h1>Welcome, <?php echo $username; ?></h1>
+<body>
+<a href="results.php?search_query=" class="button">Search for Tasks</a>
+<h1>Manage your tasks</h1>
 
 <form method="POST">
     <input type="text" name="task_list_title" placeholder="New Task List Title" required>
@@ -140,8 +143,8 @@ $taskLists = mysqli_query($conn, $query);
 
 <?php while ($taskList = mysqli_fetch_assoc($taskLists)) { ?>
     <div class="task-list">
-        <h2><?php echo $taskList['list_title']; ?>
-            <a href="?delete_task_list=<?php echo $taskList['task_list_id']; ?>">Delete Task List</a>
+        <h2><?php echo $taskList['list_title'] . "\t\t"; ?>
+            <a class='button2' href="?delete_task_list=<?php echo $taskList['task_list_id']; ?>">Delete Task List</a>
         </h2>
 
         <form method="POST">
@@ -158,8 +161,8 @@ $taskLists = mysqli_query($conn, $query);
         while ($task = mysqli_fetch_assoc($tasks)) { ?>
             <div class="task">
                 <p><?php echo $task['title']; ?> - <?php echo $task['status'] ?>
-                    <a href="?change_status=<?php echo $task['id']; ?>">Change Status</a>
-                    <a href="?delete_task=<?php echo $task['id']; ?>">Delete Task</a>
+                    <a href="?change_status=<?php echo $task['id']; ?>" class="button2">Change Status</a>
+                    <a href="?delete_task=<?php echo $task['id']; ?>" class="button2">Delete Task</a>
                 <form method="POST" action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>">
                     <input type="hidden" name="task_id" value="<?php echo $task['id']; ?>">
                     <input type="hidden" name="task_title" value="<?php echo $task['title']; ?>">
@@ -172,15 +175,17 @@ $taskLists = mysqli_query($conn, $query);
     </div>
 <?php }
 ?>
-<h2> Assigned Tasks</h2>
 <?php $query = "SELECT * FROM tasks WHERE assigned = '$username' ORDER BY timestamp DESC";
 $tasks = mysqli_query($conn, $query);
+if ($tasks && mysqli_num_rows($tasks) > 0){
+    echo "<h2> Assigned Tasks</h2>";
+}
 
 while ($task = mysqli_fetch_assoc($tasks)) {
     ?>
     <div class="task">
         <p><?php echo $task['title']; ?> - <?php echo $task['status'] ?> - by <?php echo $task['owner'];?>
-            <a href="?unassign_task=<?php echo $task['id']; ?>">Leave Task</a>
+            <a class="button2" href="?unassign_task=<?php echo $task['id']; ?>">Leave Task</a>
         </p>
     </div>
 <?php }

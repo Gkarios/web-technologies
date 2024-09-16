@@ -1,6 +1,6 @@
 <?php
 session_start();
-include ('database.php');
+include ('backend/database.php');
 include ("header.html");
 ?>
 

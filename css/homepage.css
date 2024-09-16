@@ -3,7 +3,6 @@
 }
 
 body {
-    background: linear-gradient(135deg, #2a0dcf, #3d3c3c);
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -37,7 +36,6 @@ p {
 }
 
 .start {
-  background-color:mediumblue;
   border-radius: 25px;
   border:none;
   padding:3% 6%;
@@ -50,7 +48,6 @@ p {
     width: 250px;
     height:350px;
     border-radius: 25px;
-    background-color: #3882F6;
     align-self: center;
 }
 

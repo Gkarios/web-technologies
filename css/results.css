@@ -1,0 +1,69 @@
+/* * {
+    color: lightcyan;
+    margin-bottom: 18px;
+}
+
+
+body {
+    line-height: 1.5;
+    font-size: 16px;
+    background: linear-gradient(135deg, #2a0dcf, #3d3c3c);
+    display: flex;
+    flex-direction: column;
+    height: 250vh;
+    overflow: auto;
+}
+*/
+.results{
+    font-size: 2.0rem;
+    align-self: center;
+}
+
+.statusMessage{
+    color: red;
+    font-size: 2.5rem;
+}
+
+input {
+    border-radius: 15px;
+    background-color: hsl(216, 100%, 90%);
+    align-self: center;
+    color: black;
+}
+
+button, .button, .button2{
+    color: black;
+    font-size: 1rem;
+    padding: 0.3rem 0.6rem;
+}
+
+.button{
+    display: inline-block;
+    background-color: #565a5f; /* Bootstrap primary color */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+.timestamp, .status{
+    font-size: 16px;
+    display: inline;
+}
+
+/*tasks.php starts here*/
+.button2{
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: beige; /* Bootstrap primary color */
+    color: black;
+}

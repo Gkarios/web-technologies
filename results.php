@@ -1,5 +1,5 @@
 <?php
-include("database.php");
+include("backend/database.php");
 include("header.html");
 
 session_start();
@@ -66,29 +66,27 @@ if (isset($_GET['search_query'])) {
 }
 $conn->close();
 
-if ($noMainTask == true && $noAssignedTask == true) {
-    echo "No Results found.";
-}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Task Lists and Tasks</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Task Lists and Tasks</title>
+<link rel="stylesheet" href="css/results.css" />
 </head>
 
 <body>
-    <header>
-        <a href="tasks.php">Edit Tasks</a>
-    </header>
+    <a href="tasks.php" class="button">Edit Tasks</a>
+    <br>
+    <h1>Search Your Tasks</h1>
     <form method="GET">
         <input type="text" name="search_query" placeholder="Search"
             value="<?php echo htmlspecialchars($searchQuery); ?>">
         <button type="submit">Search</button>
     </form>
 
+    <div class="results">
     <?php if (!empty($searchResults)): ?>
         <?php
         $currentTaskList = null;
@@ -108,7 +106,9 @@ if ($noMainTask == true && $noAssignedTask == true) {
                 <?php endif; ?>
 
                 <?php if (!empty($result['title'])): ?>
-                    <li><?php echo htmlspecialchars($result['title']); ?> - <?php echo $result['status']?> - <?php echo $result['timestamp']?></li>
+                    <li><?php echo htmlspecialchars($result['title']); ?> - <div class="status"><?php echo $result['status'] ?></div> -
+                        <div class="timestamp"><?php echo $result['timestamp'] ?></div>
+                    </li>
                 <?php endif; ?>
             <?php endforeach; ?>
         </ul>
@@ -117,9 +117,20 @@ if ($noMainTask == true && $noAssignedTask == true) {
         <h3>Tasks Assigned to You:</h3>
         <ul>
             <?php foreach ($assignedTasks as $task): ?>
-                <li><?php echo htmlspecialchars($task['title']); ?> - <?php echo $task['status']?> - by <?php echo htmlspecialchars(($task['owner'])); ?></li>
+                <li><?php echo htmlspecialchars($task['title']); ?> - <div class="status"><?php echo $task['status'] ?></div> - by
+                    <?php echo htmlspecialchars(($task['owner'])); ?>
+                </li>
             <?php endforeach; ?>
         </ul>
-    <?php endif; ?>
+        <br>
+    <?php endif;
+    
+if ($noMainTask == true && $noAssignedTask == true) {
+    echo '<br><div class="statusMessage">No results found.</div>';
+}
+    
+    ?>
+    </div>
 </body>
+
 </html>
