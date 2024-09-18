@@ -119,9 +119,18 @@ if (isset($_GET['unassign_task'])) {
 if (isset($_GET['change_status'])){
     echo "change status:";
 }
-
+    
 // Retrieve all task lists for the user
-$query = "SELECT * FROM taskLists WHERE username='$username' ORDER BY timestamp DESC";
+$query = "SELECT * FROM taskLists WHERE username=? ORDER BY timestamp DESC";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $username);
+$stmt->execute();
+$result = $stmt->get_result();
+
+while ($)
+
+
+
 $taskLists = mysqli_query($conn, $query);
 ?>
 

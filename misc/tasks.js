@@ -7,6 +7,48 @@ const modalCancelBtn = document.querySelector(".cancelBtn");
 
 newTaskListBtn.addEventListener("click", getListName);
 
+$(document).ready(function() {
+  // Load task lists when the page loads
+  loadTaskLists();
+
+  // Function to load task lists using AJAX
+  function loadTaskLists() {
+      $.ajax({
+          url: '/trello/backend/tasks.php', // PHP file that fetches task lists from the database
+          method: 'GET',
+          success: function(response) {
+              $('#task-lists-container').html(response); // Insert the response into the HTML
+          },
+          error: function() {
+              alert('Failed to load task lists.');
+          }
+      });
+  }
+
+  // Submit new task list form via AJAX
+  $('#new-task-list-form').on('submit', function(e) {
+      e.preventDefault(); // Prevent default form submission
+
+      const taskListTitle = $('input[name="task_list_title"]').val();
+
+      $.ajax({
+          url: '/trello/backend/tasks.php', // PHP file to create a new task list
+          method: 'POST',
+          data: { task_list_title: taskListTitle },
+          success: function() {
+              loadTaskLists(); // Reload the task lists after successful creation
+              $('input[name="task_list_title"]').val(''); // Clear the input field
+          },
+          error: function() {
+              alert('Failed to create task list.');
+          }
+      });
+  });
+
+  // Other JavaScript functionality to manage tasks, delete task lists, etc.
+});
+
+
 function showModal(taskList) {
   let liName = taskList.querySelector("textarea").value;
   let isNameTooLong = liName.length > 60;
