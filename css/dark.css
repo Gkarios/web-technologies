@@ -1,10 +1,12 @@
 * {
   box-sizing: border-box;
+  color: white;
 }
 
-html,body{
+html,
+body {
   height: 100%;
-  background-color: whitesmoke;
+  background-color: rgb(22, 21, 21);
 }
 
 #main-container {
@@ -14,7 +16,7 @@ html,body{
   font-family: "Times New Roman", Times, serif;
 }
 
-#container{
+#container {
   border: solid 5px lightgray;
   border-radius: 25px;
   overflow: hidden;
@@ -30,7 +32,6 @@ html,body{
 }
 
 .assistance {
-  color: rgba(0, 0, 0, 0.673);
   text-align: center;
   margin-bottom: 15%;
 }
@@ -40,18 +41,18 @@ h1 {
 }
 
 #FAQ-container {
-  height: fit-content; 
+  height: fit-content;
   width: 500px;
-  margin: 0 auto; 
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
   overflow: hidden;
 }
 
-h3{
-    margin: 5px;
-    cursor: pointer;
+h3 {
+  margin: 5px;
+  cursor: pointer;
 }
 
 .line {
@@ -63,38 +64,40 @@ p {
   margin-bottom: 5px;
 }
 
-.hidden{
-    display: none;
-    margin-left: 5%;
+.hidden {
+  display: none;
+  margin-left: 5%;
 }
 
-.faq-header{
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
+.faq-header {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
-span{
-    display: flex;
-    width: 20px;
-    height: 20px;
-    border: 2px solid black;
-    border-radius: 50%;
-    justify-content: center;
-    align-items: center;
-    margin-right: 5%;
-    margin-bottom: 5%;
+span {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  border: 2px solid whitesmoke;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  margin-right: 5%;
+  margin-bottom: 5%;
 }
 
 #main-container > img {
   width: 300px;
   height: 300px;
+  opacity: 0.7;
   margin-top: 22%;
+
 }
 
-body > img{
-  position: absolute;
-  left: 95%;
-  top: 10%;
-  cursor: pointer;
+body > img {
+    position: absolute;
+    left: 95%;
+    top: 10%;
+    cursor: pointer;
 }

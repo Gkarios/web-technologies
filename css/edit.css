@@ -10,22 +10,27 @@ html {
 @media (max-width: 600px) {
     form {
         width: 90%;
-        /* Make the form width responsive on smaller screens */
     }
 }
 
 body {
     font-size: 1.7rem;
-    background: linear-gradient(135deg, #2a0dcf, #3d3c3c);
+    background-color: rgb(61, 61, 204);
     display: flex;
     flex-direction: column;
     height: 100vh;
-    gap: 100px;
 }
 
 form {
     max-width: 1400px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+
+label{
+    margin-top: 10px;
 }
 
 input {
@@ -33,11 +38,16 @@ input {
     background-color: hsl(216, 100%, 85%);
     align-self: center;
     font-size: 1.5rem;
+    border: none;
+    padding: 2%;
+    outline: solid 3px black;
+    margin-top: 5px;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="submit"] {
+input:focus{
+    outline: solid 3px blue;
+}
+input {
     color: black;
     width: 100%;
     max-width: 300px;
@@ -49,35 +59,53 @@ input[name="action"] {
 
 input[type="submit"] {
     height: 40px;
+    cursor: pointer;
 }
 
 .statusMessage {
     position: absolute;
     top: 100px;
-    /* Adjust based on where you want it to appear */
     left: 50%;
-    /* Center horizontally */
     transform: translateX(-50%);
-    /* Adjust to center the message */
     text-align: center;
     margin: 20px auto;
     font-size: 36px;
     color: red;
     z-index: 1000;
-    font: helvetica;
+    font-family: helvetica;
 }
 
 h2 {
     position: absolute;
     top: 100px;
-    /* Adjust based on where you want it to appear */
-    left: 14%;
-    /* Center horizontally */
+    left: 18%;
     transform: translateX(-50%);
-    /* Adjust to center the message */
     text-align: center;
     margin: 20px auto;
     font-size: 36px;
-    z-index: 1000;
-    font: helvetica;
+    z-index: 999;
+    font-family: helvetica;
+}
+
+#opt-container{
+    display: flex;
+    width: 300px;
+    margin-left: 40px;
+    gap: 10px;
+}
+
+#opt-container > input{
+    outline: none;
+    width: 50%;
+    color: beige;
+    margin-top: 5px;
+}
+
+
+#opt-container > input:first-child{
+    background-color: gray;
+}
+
+#opt-container > input:last-child{
+    background-color:darkcyan;
 }

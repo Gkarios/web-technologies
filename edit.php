@@ -60,6 +60,83 @@ if (!isset($_SESSION['username'])) {
 </form>
 </body>
 
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update your information</title>
+    <link rel="stylesheet" href="css/edit.css" />
+</head>
+<h2>Update your Information:</h2>
+    <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="POST">
+      <label for="firstName">First name:</label>
+      <input
+        type="text"
+        id="firstName"
+        name="firstName"
+        value="<?php echo htmlspecialchars($_SESSION['firstName']); ?>"
+        required
+      />
+
+      <label for="lastName">Last name:</label>
+      <input type="text" id="lastName" name="lastName" 
+      value="<?php echo htmlspecialchars($_SESSION['lastName']); ?>" 
+      required />
+
+      <label for="username">Username:</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        value="<?php echo htmlspecialchars($_SESSION['username']); ?>"
+        required
+      />
+
+      <label for="email">Email:</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        value="<?php echo htmlspecialchars($_SESSION['email']); ?>"
+        required
+      />
+
+      <label for="simplepushKey">Simplepush.io key:</label>
+      <input type="text" id="simplepushKey" name="simplepushKey" 
+      value="<?php if (isset($_SESSION['simplepushKey'])) {echo htmlspecialchars($_SESSION['simplepushKey']); }?>"
+      />
+
+      <label for="passwordNew">(Optional) Make a new password:</label>
+      <input type="password" id="passwordNew" name="passwordNew" />
+
+      <label for="password">Enter your password to update:</label>
+      <input type="password" id="password" name="password" />
+
+      <br />
+
+      <div id="opt-container">
+        <input type="submit" name="action" value="Cancel" />
+        <input type="submit" name="action" value="Apply" />
+      </div>
+      <br />
+
+      <input
+        type="submit"
+        name="action"
+        style="
+          background-color: red;
+          color: white;
+          outline: none;
+          border-radius: 5px;
+          height: 50px;
+          width: 250px;
+        "
+        value="Delete My Account"
+      />
+      <br />
+</form>
+</body>
 </html>
 
 <?php

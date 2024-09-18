@@ -31,38 +31,40 @@ if (!isset($_SESSION["username"])) {
           streamline tasks, and keep your team aligned,<br />
           all while staying on top of deadlines and goals.
         </p>
-        <form action="signup.php" method="POST">
-        <button class="start">Get Started</button>
-</form>
+        <div class="acc-btns">
+          <form action="signup.php" method="POST">
+            <button class="start">Get Started</button>
+          </form>
+          <form action="login.php" method="POST">
+            <button class="login">Log in</button>
+          </form>
+        </div>
       </div>
       <img src="images/business-network.png" class="team" />
       <div class="frame"><img src="images/woman.png" class="person" /></div>
       <img src="images/to-do-list.png" class="tasklist2" />
     </div>
-      <div class="accountBtns">
-        <h1>Already have an account?</h1>
-        <form action="login.php" method="POST">
-        <button style="font-size:34px; background-color: #1451e0">Log in</button>
-</form>
-      </div>
     </body>
 
     </html>
 
     <?php
 } else {
-    echo "<h2 style='font-size: 24px; border-color: #007bff; color: #fff; border: 1px solid $007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;'>Welcome, " . $_SESSION['username'] . "</h2>";
-    if (isset($_SESSION['update_success'])) {
+  echo "<h2>Welcome, " . $_SESSION['username'] . "</h2>";
+  if (isset($_SESSION['update_success'])) {
         echo "<h2>" . $_SESSION['update_success'] . "</h2>";
         // Clear the success message to prevent it from displaying on subsequent visits
         unset($_SESSION['update_success']);
     }
         ?>
 <html>
-    <a style='font-size:24px; font-weight:bold; background-color: #007bff; color: #fff; border: 1px solid #007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;' href="/trello/edit.php">Edit your account</a>
-    <a style='font-size:24px; font-weight:bold; background-color: #007bff; color: #fff; border: 1px solid #007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;' href="/trello/tasks.html">Manage your tasks</a>
-    <a style='font-size:24px; font-weight:bold; background-color: #007bff; color: #fff; border: 1px solid #007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;' href="/trello/backend/export.php">Export to XML</a>
-    <a style='font-size:24px; font-weight:bold; background-color: #007bff; color: #fff; border: 1px solid #007bff; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;' href="/trello/logout.php">Log out</a>
+  <div id="account-menu">
+      <h2>Account Options</h2>
+      <a href="/trello/edit.php">Edit your account</a>
+      <a href="/trello/tasks.html">Manage your tasks</a>
+      <a href="/trello/backend/export.php">Export to XML</a>
+      <a href="/trello/logout.php">Log out</a>
+  </div>
 </html>
 <?php
 }?>
