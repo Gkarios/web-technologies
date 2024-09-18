@@ -39,7 +39,7 @@ button, .button, .button2{
 
 .button{
     display: inline-block;
-    background-color: #565a5f; /* Bootstrap primary color */
+    background-color:   #565a5f; /* Bootstrap primary color */
     color: white;
     text-decoration: none;
     border-radius: 5px;

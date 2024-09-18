@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 15, 2024 at 09:41 AM
+-- Generation Time: Sep 18, 2024 at 03:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -43,13 +43,13 @@ INSERT INTO `taskLists` (`task_list_id`, `username`, `list_title`, `timestamp`) 
 (2, 'NickM', 'dfs', '2024-08-09 13:27:15'),
 (3, 'Jaywalk', 'ds', '2024-08-09 13:22:53'),
 (8, 'Espien123', 'language', '2024-08-25 13:31:41'),
-(10, 'Espien123', 'music', '2024-08-25 14:10:44'),
 (14, 'Gaddafi', 'Weapons Development', '2024-08-25 17:28:04'),
 (16, 'The Landlord', 'Finance', '2024-08-25 19:26:27'),
 (17, 'TC', 'Sleep', '2024-08-25 19:38:38'),
 (18, 'MetroGroomin', 'Music', '2024-08-25 19:46:25'),
 (19, 'Espien123', 'Math', '2024-08-28 11:10:14'),
-(22, 'PolishNa', 'Polish', '2024-09-14 16:16:12');
+(22, 'PolishNa', 'Polish', '2024-09-14 16:16:12'),
+(23, 'Espien123', 'Workout', '2024-09-16 16:28:42');
 
 -- --------------------------------------------------------
 
@@ -72,17 +72,18 @@ CREATE TABLE `tasks` (
 --
 
 INSERT INTO `tasks` (`id`, `title`, `timestamp`, `status`, `task_list_id`, `owner`, `assigned`) VALUES
-(9, 'Violin', '2024-08-25 15:58:47', 'in progress', 10, 'Espien123', 'Anita Maxwin'),
 (10, 'Portugese', '2024-08-25 16:04:54', 'in progress', 8, 'Espien123', NULL),
 (12, 'Mandarin', '2024-08-25 16:06:37', 'in progress', 8, 'Espien123', 'Jaywalk'),
 (14, 'Snow', '2024-08-25 17:37:41', 'in progress', 14, 'Gaddafi', NULL),
 (15, 'Drone R&D', '2024-08-25 17:37:51', 'in progress', 14, 'Gaddafi', NULL),
 (20, 'Stocks', '2024-08-25 19:26:29', 'in progress', 16, 'The Landlord', NULL),
-(21, 'Dream', '2024-08-25 19:38:41', 'in progress', 17, 'TC', 'Espien123'),
+(21, 'Dream', '2024-08-25 19:38:41', 'in progress', 17, 'TC', NULL),
 (23, 'rap', '2024-08-25 19:46:40', 'in progress', 18, 'MetroGroomin', 'NickM'),
 (25, 'Geometry', '2024-08-28 11:10:24', 'in progress', 19, 'Espien123', 'Jaywalk'),
 (32, 'Crypto', '2024-08-28 15:27:11', 'in progress', 1, 'Jaywalk', 'Espien123'),
-(33, 'Alphabet', '2024-09-14 16:16:14', 'in progress', 22, 'PolishNa', NULL);
+(33, 'Alphabet', '2024-09-14 16:16:14', 'in progress', 22, 'PolishNa', NULL),
+(35, 'll', '2024-09-16 16:31:33', 'in progress', 23, 'Espien123', NULL),
+(36, 'Weights', '2024-09-16 16:31:40', 'in progress', 23, 'Espien123', 'Ally1');
 
 -- --------------------------------------------------------
 
@@ -110,10 +111,11 @@ INSERT INTO `users` (`firstName`, `lastName`, `username`, `password`, `email`, `
 ('Darius', 'Jackson', 'DJ ignite', '$2y$10$yMDZ7lOOzwXKrjtFyfJkDu/CxJwVNhPtMY9JMYHlesHuWI8O4TPIS', 'perseverance@gmail.com', NULL),
 ('Aubrey', 'Graham', 'Dropper', '$2y$10$GFNl1Mvmy97F4ZnFoYypH.ow0KbCkYpTEF9yGPVh3gNDNp9E0CXlq', 'Aubrey43434@gmail.com', NULL),
 ('prevue', 'lurkingly', 'enlarges', '$2y$10$5Q7/ZbY2dJP95VQnbTSOpuqszsCAPoVbKgHCxUYqtLQ8nsbrCpMry', 'disestablished', NULL),
-('Sarah', 'Jones', 'Espien123', '$2y$10$7tiDPpkEIT5XoqVV1cAmEOvdTuJONn0.oexGB7/yKl2AKblvP/3Jm', 'SarahJJ56@gmail.com', NULL),
+('Sarah', 'Jones', 'Espien123', '$2y$10$7tiDPpkEIT5XoqVV1cAmEOvdTuJONn0.oexGB7/yKl2AKblvP/3Jm', 'SarahJJ57@gmail.com', NULL),
 ('didynamies', 'paseo', 'fatwood', '$2y$10$3PYKa/mcfAmageRFTMlVr.7bp4EpTdLmZ2Vq5EEpIgalivFBA.cgy', 'mistitles@nutwood', NULL),
 ('Ø§Ù„Ù‚Ø°Ø§ÙÙŠ', 'Ù…Ø¹Ù…Ø±', 'Gaddafi', '$2y$10$FpT5XesiIsIdlkZ9ZDQijur/9kJjkGbeTF3kUqDrojaKSo58yFsCa', 'gad@gmail.com', NULL),
 ('Jay', 'Walker', 'Jaywalk', '$2y$10$cO.NKEoLekD8no2e/RnoKOQDEyir.PM9hj6MdJsyg.R0VR9XaPFdW', 'JayWalker@gmail.com', NULL),
+('Jacques', 'Rousseau', 'Jean', '$2y$10$LEfcWau9.clFzTnjdWUS9.mdRUIIM0rfEj9Ht/niYOFU4C1ddzjYi', 'Philosophist@gmail.com', NULL),
 ('Leon', 'Jones', 'LeeJ', '$2y$10$xtNrahQ2bpGsVd8YSxZJ6O301No50AZmCxk6bFg4njlgyZ8Yf3Gf.', 'LeeJones@gmail.com', 'G8f3jF'),
 ('Mallards', 'CB', 'MallardCB', '$2y$10$fpcsDOgJ61LN48gJxEv9buh.5FUDn8HI9DHZfA/Y3pLDqrbAXQgNy', 'mallory@yahoomail.com', NULL),
 ('Metro', 'Boomin', 'MetroGroomin', '$2y$10$VZYvBC7eOXNpT3YjJ7I3seL8IFpVn9d1p3zreM9MUpnP6pSGaHvr.', 'Metroooo@gmail.com', NULL),
@@ -186,13 +188,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `taskLists`
 --
 ALTER TABLE `taskLists`
-  MODIFY `task_list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `task_list_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- Constraints for dumped tables

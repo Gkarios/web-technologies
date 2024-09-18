@@ -77,7 +77,7 @@ $conn->close();
 </head>
 
 <body>
-    <a href="tasks.php" class="button">Edit Tasks</a>
+    <a href="tasks.html" class="button">Edit Tasks</a>
     <br>
     <h1>Search Your Tasks</h1>
     <form method="GET">
