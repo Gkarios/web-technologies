@@ -58,13 +58,17 @@ if (!isset($_SESSION["username"])) {
     }
         ?>
 <html>
-  <div id="account-menu">
+  <head>
+    <link rel = "stylesheet" href = "css/registered.css">
+    <body>
+    <div id="account-menu">
       <h2>Account Options</h2>
       <a href="/trello/edit.php">Edit your account</a>
       <a href="/trello/tasks.html">Manage your tasks</a>
       <a href="/trello/backend/export.php">Export to XML</a>
       <a href="/trello/logout.php">Log out</a>
-  </div>
+    </div>
+    </body>
 </html>
 <?php
 }?>
