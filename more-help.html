@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/light.css" id="light" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <script>
+    $(function () {
+      $("#header").load("header.html");
+    });
+  </script>
+  <body>
+    <div id="header"></div>
+    <img id="toggleIcon" src="images/moon.png" title="Enter dark mode" />
+    <div id="main-container">
+      <img src="images/task-dist.png" class="left" />
+      <div id="container">
+        <h1>Welcome to Our Help Center</h1>
+        <p class="assistance">Need assistance?</p>
+        <div id="FAQ-container">
+          <div class="faq-header">
+            <h3>How do I see my current tasklists?</h3>
+            <span>+</span>
+          </div>
+          <p class="hidden">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci,
+            aspernatur accusamus cumque ipsum aut sequi temporibus a incidunt
+            nulla cupiditate obcaecati non sint eligendi voluptates doloremque
+            officiis inventore nisi laborum?
+          </p>
+          <div class="faq-header">
+            <h3>How do I assign a task to a colleague?</h3>
+            <span>+</span>
+          </div>
+          <p class="hidden">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Consectetur, iure et reiciendis natus porro pariatur quidem, iusto
+            minima dolorum non maxime a qui ratione quis perspiciatis ducimus
+            accusantium laudantium quia.
+          </p>
+          <div class="faq-header">
+            <h3>Do I need an account to make a task?</h3>
+            <span>+</span>
+          </div>
+          <p class="hidden">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat,
+            adipisci ex. Sapiente id vitae quaerat explicabo, officiis enim esse
+            fugiat, corrupti cum deleniti quia sit veniam quae minus deserunt
+            odio!
+          </p>
+        </div>
+      </div>
+      <img src="images/scheduling-board.png" class="right" />
+    </div>
+    <script>
+      const headers = document.querySelectorAll(".faq-header");
+      const para = document.querySelectorAll(".hidden");
+      const toggleIcon = document.querySelectorAll("span");
+
+      for (let i = 0; i < headers.length; i++) {
+        headers[i].addEventListener("click", () => {
+          para[i] =
+            para[i].style.display == "block"
+              ? (para[i].style.display = "none")
+              : (para[i].style.display = "block");
+          toggleIcon[i].textContent =
+            toggleIcon[i].textContent === "+" ? "−" : "+";
+        });
+      }
+
+      const tog = document.querySelector("#toggleIcon");
+      const style = document.querySelector("#light");
+      tog.addEventListener("click", () => {
+        if (style.id == "light") {
+          tog.title = "Enter light mode";
+          tog.src = "images/sun.png";
+          style.href = "css/dark.css";
+          style.id = "dark";
+        } else {
+          tog.title = "Enter dark mode";
+          tog.src = "images/moon.png";
+          style.href = "css/light.css";
+          style.id = "light";
+        }
+      });
+    </script>
+  </body>
+</html>
