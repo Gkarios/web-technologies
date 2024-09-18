@@ -11,56 +11,7 @@ if (!isset($_SESSION['username'])) {
 }
 ?>
 
-
-
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update your information</title>
-    <link rel="stylesheet" href="css/edit.css" />
-</head>
-<h2>Update your Information: </h2>
-<form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="POST">
-    <label for="firstName">First name:</label>
-    <input type="text" id="firstName" name="firstName" value="<?php echo htmlspecialchars($_SESSION['firstName']); ?>"
-        required>
-    <label for="lastName">Last name:</label>
-    <input type="text" id="lastName" name="lastName" value="<?php echo htmlspecialchars($_SESSION['lastName']); ?>"
-        required>
-    <br><br>
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" value="<?php echo htmlspecialchars($_SESSION['username']); ?>"
-        required>
-    <label for="email">Email:</label>
-    <input type="text" id="email" name="email" value="<?php echo htmlspecialchars($_SESSION['email']); ?>" required>
-    <br><br>
-    <label for="simplepushKey">Simplepush.io key:</label>
-    <input type="text" id="simplepushKey" name="simplepushKey"
-        value="<?php if (isset($_SESSION['simplepushKey'])) {echo htmlspecialchars($_SESSION['simplepushKey']); }?>">
-    <br><br>
-    <label for="passwordNew">(Optional) Make a new password:</label>
-    <input type="password" id="passwordNew" name="passwordNew">
-    <br><br><br>
-    <label for="password">Enter your password to update:</label>
-    <input type="password" id="password" name="password">
-    <br><br>
-    <input type="submit" name="action" value="cancel">
-    <input type="submit" name="action" value="apply">
-    <br>
-    <br><br>
-    <br><br>
-    <br><br>
-    <label for="delete" style="color: #9e9999; font-size: 22px;">Delete your account permanently:</label>
-    <input type="submit" name="action" style="background-color: gray; border-radius: 11px; width: 120px; height: 40px;"
-        value="delete">
-    <br><br>
-</form>
-</body>
-
-</html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
