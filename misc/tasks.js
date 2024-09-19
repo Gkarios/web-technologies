@@ -8,18 +8,16 @@ const modalCancelBtn = document.querySelector(".cancelBtn");
 newTaskListBtn.addEventListener("click", getListName);
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Make a GET request to load tasks
-  fetch('/trello/backend/tasks.php?load_tasks=true') // Replace with your PHP script path
+  fetch('/trello/backend/tasks.php?load_tasks=true') 
       .then(response => {
           if (!response.ok) {
               throw new Error('Network response was not ok');
           }
-          return response.json(); // Parse JSON response
+          return response.json();
       })
       .then(data => {
-          console.log("Task Lists:", data); // Log task lists to console
+          console.log("Task Lists:", data); 
           
-          // Example: Displaying task lists in an HTML element
           data.forEach(function(taskList) {
               const listItem = document.createElement('li');
               listItem.textContent = `${taskList.list_title} - Created at: ${taskList.timestamp}`;

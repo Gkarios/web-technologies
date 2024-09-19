@@ -4,8 +4,10 @@ include("header.html");
 include("backend/Simplepush.php");
 session_start();
 
-error_reporting(E_ALL);
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
@@ -116,8 +118,15 @@ if (isset($_GET['unassign_task'])) {
     $stmt->close();
 }
 
+// Handle changing a task's status
 if (isset($_GET['change_status'])){
-    echo "change status:";
+    $status = $_GET['change_status'];
+    $task_id = $_GET['task_id'];
+    
+    $stmt = $conn->prepare("UPDATE tasks SET status=? where id=?");
+    $stmt->bind_param("si", $status, $task_id);
+    $stmt->execute();
+    $stmt->close();
 }
 
 // Retrieve all task lists for the user
@@ -155,15 +164,16 @@ $taskLists = mysqli_query($conn, $query);
 
         <?php
         $currentTaskList_id = $taskList['task_list_id'];
-        $query = "SELECT * FROM tasks WHERE task_list_id='$currentTaskList_id' AND owner='$username' ORDER BY timestamp DESC";
+        $query = "SELECT * FROM tasks WHERE task_list_id='$currentTaskList_id' AND owner='$username' ORDER BY status ASC";
         $tasks = mysqli_query($conn, $query);
 
         while ($task = mysqli_fetch_assoc($tasks)) { ?>
             <div class="task">
                 <p><?php echo $task['title']; ?> - <?php echo $task['status'] ?>
-                    <a href="?change_status=<?php echo $task['id']; ?>" class="button2">Change Status</a>
+                    <button type="button" class="button2" id="change_status_<?php echo $task['id']; ?>">Change status</button>
+                    <div class="divOptions" id="statusOptions_<?php echo $task['id']; ?>" style="display: none;"></div>
                     <a href="?delete_task=<?php echo $task['id']; ?>" class="button2">Delete Task</a>
-                <form method="POST" action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>">
+                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                     <input type="hidden" name="task_id" value="<?php echo $task['id']; ?>">
                     <input type="hidden" name="task_title" value="<?php echo $task['title']; ?>">
                     <input type="text" name="assigned_user" placeholder="Enter user to assign" required>
@@ -171,26 +181,25 @@ $taskLists = mysqli_query($conn, $query);
                 </form>
                 </p>
             </div>
-        <?php } ?>
-    </div>
-<?php }
-?>
-<?php $query = "SELECT * FROM tasks WHERE assigned = '$username' ORDER BY timestamp DESC";
-$tasks = mysqli_query($conn, $query);
-if ($tasks && mysqli_num_rows($tasks) > 0){
-    echo "<h2> Assigned Tasks</h2>";
-}
-
-while ($task = mysqli_fetch_assoc($tasks)) {
-    ?>
-    <div class="task">
-        <p><?php echo $task['title']; ?> - <?php echo $task['status'] ?> - by <?php echo $task['owner'];?>
-            <a class="button2" href="?unassign_task=<?php echo $task['id']; ?>">Leave Task</a>
-        </p>
-    </div>
-<?php }
-$conn->close();
-?>
+        
+            <script>
+                const taskId_<?php echo $task['id'] ? $task['id'] : 'null'; ?> = <?php echo json_encode($task['id'] ? $task['id'] : 'null'); ?>;
+                document.getElementById('change_status_<?php echo $task['id']; ?>').addEventListener('click', function(){
+                    const statusOptions = document.getElementById('statusOptions_<?php echo $task['id']; ?>');
+                    statusOptions.innerHTML = '';
+        
+                    const options = ['in progress', 'stand by', 'completed'];
+                    options.forEach(option => {
+                        const link = document.createElement('a');
+                        link.textContent = option;
+                        link.style.display = 'block';
+                        link.href = `tasks.php?change_status=${encodeURIComponent(option)}&task_id=${encodeURIComponent(taskId_<?php echo $task['id']; ?>)}`;
+                        statusOptions.appendChild(link);
+                    });
+                    statusOptions.style.display = 'inline';
+                });
+            </script>
+            <?php }
+        } ?>
 </body>
-
 </html>
