@@ -7,46 +7,68 @@ const modalCancelBtn = document.querySelector(".cancelBtn");
 
 newTaskListBtn.addEventListener("click", getListName);
 
-$(document).ready(function() {
-  // Load task lists when the page loads
-  loadTaskLists();
-
-  // Function to load task lists using AJAX
-  function loadTaskLists() {
-      $.ajax({
-          url: '/trello/backend/tasks.php', // PHP file that fetches task lists from the database
-          method: 'GET',
-          success: function(response) {
-              $('#task-lists-container').html(response); // Insert the response into the HTML
-          },
-          error: function() {
-              alert('Failed to load task lists.');
+document.addEventListener('DOMContentLoaded', function() {
+  // Make a GET request to load tasks
+  fetch('/trello/backend/tasks.php?load_tasks=true') // Replace with your PHP script path
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Network response was not ok');
           }
-      });
-  }
-
-  // Submit new task list form via AJAX
-  $('#new-task-list-form').on('submit', function(e) {
-      e.preventDefault(); // Prevent default form submission
-
-      const taskListTitle = $('input[name="task_list_title"]').val();
-
-      $.ajax({
-          url: '/trello/backend/tasks.php', // PHP file to create a new task list
-          method: 'POST',
-          data: { task_list_title: taskListTitle },
-          success: function() {
-              loadTaskLists(); // Reload the task lists after successful creation
-              $('input[name="task_list_title"]').val(''); // Clear the input field
-          },
-          error: function() {
-              alert('Failed to create task list.');
-          }
-      });
-  });
-
-  // Other JavaScript functionality to manage tasks, delete task lists, etc.
+          return response.json(); // Parse JSON response
+      })
+      .then(data => {
+          console.log("Task Lists:", data); // Log task lists to console
+          
+          // Example: Displaying task lists in an HTML element
+          data.forEach(function(taskList) {
+              const listItem = document.createElement('li');
+              listItem.textContent = `${taskList.list_title} - Created at: ${taskList.timestamp}`;
+              container.appendChild(listItem);
+          });
+      })
+      .catch(error => console.error('There was a problem with your fetch request:', error));
 });
+
+// $(document).ready(function() {
+//   // Load task lists when the page loads
+//   loadTaskLists();
+
+//   // Function to load task lists using AJAX
+//   function loadTaskLists() {
+//       $.ajax({
+//           url: '/trello/backend/tasks.php', // PHP file that fetches task lists from the database
+//           method: 'GET',
+//           success: function(response) {
+//               $('#task-lists-container').html(response); // Insert the response into the HTML
+//           },
+//           error: function() {
+//               alert('Failed to load task lists.');
+//           }
+//       });
+//   }
+
+//   // Submit new task list form via AJAX
+//   $('#new-task-list-form').on('submit', function(e) {
+//       e.preventDefault(); // Prevent default form submission
+
+//       const taskListTitle = $('input[name="task_list_title"]').val();
+
+//       $.ajax({
+//           url: '/trello/backend/tasks.php', // PHP file to create a new task list
+//           method: 'POST',
+//           data: { task_list_title: taskListTitle },
+//           success: function() {
+//               loadTaskLists(); // Reload the task lists after successful creation
+//               $('input[name="task_list_title"]').val(''); // Clear the input field
+//           },
+//           error: function() {
+//               alert('Failed to create task list.');
+//           }
+//       });
+//   });
+
+//   // Other JavaScript functionality to manage tasks, delete task lists, etc.
+// });
 
 
 function showModal(taskList) {

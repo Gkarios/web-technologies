@@ -1,5 +1,5 @@
 <?php
-include("backend/database.php");
+include("database.php");
 include("header.html");
 include("backend/Simplepush.php");
 session_start();
@@ -120,18 +120,27 @@ if (isset($_GET['change_status'])){
     echo "change status:";
 }
     
-// Retrieve all task lists for the user
+// Handle loading tasks
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['load_tasks'])){
 $query = "SELECT * FROM taskLists WHERE username=? ORDER BY timestamp DESC";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $username);
 $stmt->execute();
 $result = $stmt->get_result();
 
-while ($)
+// fetch to an array
+$taskLists = [];
+while ($row = $result->fetch_assoc()){
+    $taskLists[] = $row;
+}
 
+$stmt->close();
 
-
-$taskLists = mysqli_query($conn, $query);
+// send JSON
+header('Content-Type: application/json');
+echo json_encode($taskLists);
+}
+/*
 ?>
 
 <!DOCTYPE html>
@@ -198,8 +207,7 @@ while ($task = mysqli_fetch_assoc($tasks)) {
         </p>
     </div>
 <?php }
-$conn->close();
-?>
 </body>
-
 </html>
+*/
+$conn->close();
