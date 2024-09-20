@@ -10,6 +10,7 @@ error_reporting(E_ALL);
 
 
 if (!isset($_SESSION['username'])) {
+    $_SESSION['previous_page'] = $_SERVER['REQUEST_URI'];
     header("Location: login.php");
     exit;
 }

@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 if (!isset($_SESSION['username'])) {
+    $_SESSION['previous_page'] = $_SERVER['REQUEST_URI'];
     header("Location: login.php");
     exit;
 }
@@ -67,8 +68,8 @@ if (!isset($_SESSION['username'])) {
       <br />
 
       <div id="opt-container">
-        <input type="submit" name="action" value="Cancel" />
-        <input type="submit" name="action" value="Apply" />
+        <input type="submit" name="action" value="cancel" />
+        <input type="submit" name="action" value="apply" />
       </div>
       <br />
 
@@ -83,7 +84,7 @@ if (!isset($_SESSION['username'])) {
           height: 50px;
           width: 250px;
         "
-        value="Delete My Account"
+        value="delete"
       />
       <br />
 </form>
@@ -174,7 +175,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } else if ($action == "cancel") {
         // If HTTP_REFERER is not set, redirect to a default page
-        echo "CANCEL";
         header("Location: index.php");
         exit;
     } else if ($action == "delete") {
