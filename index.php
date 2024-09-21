@@ -63,6 +63,7 @@ if (!isset($_SESSION["username"])) {
     <script src="css/theme.js"></script>
     <body>
     <div id="account-menu">
+    <img id="theme-toggle" src="images/moon.png" title="Enter dark mode" />
       <h2>Account Options</h2>
       <a href="/trello/edit.php">Edit your account</a>
       <a href="/trello/tasks.php">Manage your tasks</a>
@@ -70,6 +71,9 @@ if (!isset($_SESSION["username"])) {
       <a href="/trello/logout.php">Log out</a>
     </div>
     </body>
+    <script>
+      document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+    </script>
 </html>
 <?php
 }?>

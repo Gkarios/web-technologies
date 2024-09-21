@@ -15,21 +15,33 @@
 #account-menu > a {
   font-size: 24px;
   font-weight: bold;
-  color: #fff;
   padding: 8px 16px;
   border-radius: 4px;
   text-decoration: none;
   margin-top: 30px;
+  color: black;
   width: 70%;
 }
 
 h2 {
   margin-bottom: 0;
   font-size: 34px;
-  color: #fff;
+  color: black;
   text-align: center;
   padding: 8px 16px;
   border-radius: 4px;
   text-decoration: none;
   display: inline-block;
+}
+
+a{
+  border: inline;
+  border-color: red;
+}
+
+img{
+    position: absolute;
+    left: 95%;
+    top: 10%;
+    cursor: pointer;
 }

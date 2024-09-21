@@ -19,6 +19,7 @@ if (!isset($_SESSION['username'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update your information</title>
     <link rel="stylesheet" href="css/edit.css" />
+    <script src="css/theme.js"></script>
 </head>
 <h2>Update your Information:</h2>
     <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="POST">

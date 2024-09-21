@@ -53,11 +53,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
             $_SESSION['email'] = $email;
             $_SESSION['firstName'] = $firstName;
             $_SESSION['lastName'] = $lastName;
-            $_SESSION['simplepushKey'] = $simplepushKey;
             header("Location: index.php");
             exit;
         } catch (mysqli_sql_exception $e) {
-            echo "THAT USERNAME HAS BEEN TAKEN B.";
+            echo "That username has been taken";
+        } try{
+            $_SESSION['simplepushKey'] = $simplepushKey;
+        } catch (mysqli_sql_exception $e){
+            echo "The SimplePushKey is already being used";
         }
     }
 }
