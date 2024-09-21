@@ -60,6 +60,7 @@ if (!isset($_SESSION["username"])) {
 <html>
   <head>
     <link rel = "stylesheet" href = "css/registered.css">
+    <script src="css/theme.js"></script>
     <body>
     <div id="account-menu">
       <h2>Account Options</h2>

@@ -6,8 +6,19 @@ html,body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: rgb(61, 61, 204);
+    background-color: var(--bg-color);
+    color: var(--text-color);
   }
+
+:root{
+    --bg-color: #ffffff;
+    --text-color: #000000;
+}
+
+[data-theme="dark"]{
+    --bg-color: #656565;
+    --text-color: #e1d8d8;
+}
 
 a {
   text-decoration: none;

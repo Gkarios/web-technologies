@@ -141,6 +141,7 @@ $taskLists = mysqli_query($conn, $query);
 <head>
     <title>Manage Your Task Lists</title>
     <link rel="stylesheet" href="css/results.css"/>
+    <script src="css/theme.js"></script>
 </head>
 <body>
 <a href="results.php?search_query=" class="button">Search for Tasks</a>

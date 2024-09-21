@@ -6,10 +6,11 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/light.css" id="style" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="css/theme.js"></script>
   </head>
   <body>
     <div id="header"></div>
-    <img id="toggleIcon" src="images/moon.png" title="Enter dark mode" />
+    <img id="theme-toggle" src="images/moon.png" title="Enter dark mode" />
     <div id="main-container">
       <img src="images/task-dist.png" class="left" />
       <div id="container">
@@ -48,6 +49,9 @@
       <img src="images/scheduling-board.png" class="right" />
     </div>
     <script>
+      $(function () {
+        $("#header").load("header.html");
+      });
       const headers = document.querySelectorAll(".faq-header");
       const para = document.querySelectorAll(".hidden");
       const toggleIcon = document.querySelectorAll("span");
@@ -62,27 +66,7 @@
             toggleIcon[i].textContent === "+" ? "−" : "+";
         });
       }
-
-      const tog = document.querySelector("#toggleIcon");
-      const style = document.querySelector("#style");
-      tog.addEventListener("click", () => {
-        if(style.id == "light"){
-        tog.title = "Enter light mode";
-        tog.src = "images/sun.png";
-        style.href = "css/dark.css";
-        style.id = "dark";
-      }else{
-        tog.title = "Enter dark mode";
-        tog.src = "images/moon.png";
-        style.href = "css/light.css";
-        style.id = "light";
-      }
-      });
-    </script>
-    <script>
-      $(function () {
-        $("#header").load("header.html");
-      });
+      document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
     </script>
   </body>
 </html>

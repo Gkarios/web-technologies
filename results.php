@@ -75,6 +75,7 @@ $conn->close();
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Search Task Lists and Tasks</title>
 <link rel="stylesheet" href="css/results.css" />
+<script src="css/theme.js"></script>
 </head>
 
 <body>

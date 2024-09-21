@@ -14,11 +14,22 @@ html{
 
 body {
     font-size: 1.7rem;
-    background: linear-gradient(135deg, #2a0dcf, #3d3c3c);
     display: flex;
     flex-direction: column;
     height: 100vh;
     gap: 100px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+:root{
+    --bg-color: #ffffff;
+    --text-color: #000000;
+}
+
+[data-theme="dark"]{
+    --bg-color: #656565;
+    --text-color: #e1d8d8;
 }
 
 form {

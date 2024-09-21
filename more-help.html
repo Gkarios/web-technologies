@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/light.css" id="light" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="css/theme.js"></script>
   </head>
   <script>
     $(function () {
@@ -14,7 +15,7 @@
   </script>
   <body>
     <div id="header"></div>
-    <img id="toggleIcon" src="images/moon.png" title="Enter dark mode" />
+    <img id="theme-toggle" src="images/moon.png" title="Enter dark mode" />
     <div id="main-container">
       <img src="images/task-dist.png" class="left" />
       <div id="container">
@@ -70,22 +71,7 @@
             toggleIcon[i].textContent === "+" ? "−" : "+";
         });
       }
-
-      const tog = document.querySelector("#toggleIcon");
-      const style = document.querySelector("#light");
-      tog.addEventListener("click", () => {
-        if (style.id == "light") {
-          tog.title = "Enter light mode";
-          tog.src = "images/sun.png";
-          style.href = "css/dark.css";
-          style.id = "dark";
-        } else {
-          tog.title = "Enter dark mode";
-          tog.src = "images/moon.png";
-          style.href = "css/light.css";
-          style.id = "light";
-        }
-      });
+      document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
     </script>
   </body>
 </html>
