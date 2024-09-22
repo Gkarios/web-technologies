@@ -11,6 +11,23 @@
     align-self: center;
     margin-top: 50px;
 }
+*{ 
+  color: rgb(165, 170, 170);
+}
+html, body{
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+
+:root{
+    --bg-color: #ffffff;
+    --text-color: #000000;
+}
+
+[data-theme="dark"]{
+    --bg-color: #656565;
+    --text-color: #e1d8d8;
+}
 
 #account-menu > a {
   font-size: 24px;

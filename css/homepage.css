@@ -1,23 +1,12 @@
 * {
-  color: rgb(165, 170, 170);
+  color: lightcyan;
 }
 
 html,body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-  }
-
-:root{
-    --bg-color: #ffffff;
-    --text-color: #000000;
-}
-
-[data-theme="dark"]{
-    --bg-color: #656565;
-    --text-color: #e1d8d8;
+    background-color: rgb(61, 61, 204);
 }
 
 a {

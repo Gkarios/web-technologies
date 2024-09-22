@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
             }
         } else {
             // Invalid password
-            echo "Wrong Password!";
+            echo '<div class="statusMessage">Wrong Password!</div>';
         }
     } else {
         // User not found
