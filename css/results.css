@@ -36,7 +36,7 @@ p {
     margin: 20px auto;
     font-size: 36px;
     color: red;
-    z-index: 1000;
+    z-index: 999;
     font-family: helvetica;
 }
 
