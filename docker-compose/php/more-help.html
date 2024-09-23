@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Additional Information</title>
+  <link rel="stylesheet" href="css/light.css" id="light" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="css/theme.js"></script>
+</head>
+<script>
+  $(function () {
+    $("#header").load("header.html");
+  });
+</script>
+
+<body>
+  <div id="header"></div>
+  <img id="theme-toggle" src="images/moon.png" title="Enter dark mode" />
+  <div id="main-container">
+    <img src="images/task-dist.png" class="left" />
+    <div id="container">
+      <h1>Welcome to Our Help Center</h1>
+      <p class="assistance">Need assistance?</p>
+      <div id="FAQ-container">
+        <div class="faq-header">
+          <h3>How do I see my current tasklists?</h3>
+          <span>+</span>
+        </div>
+        <p class="hidden">
+          By clicking on "Your Tasks" at the top of the page, you will be given the opportunity to search for your
+          current tasks; whether assigned or self-created.
+        </p>
+        <div class="faq-header">
+          <h3>How do I assign a task to a colleague?</h3>
+          <span>+</span>
+        </div>
+        <p class="hidden">
+          Below any task there is a field to add anyone you like.
+          <br>As long as they have an account, just ask for their username (which is exclusive to them) and assign them
+          the task!
+        </p>
+        <div class="faq-header">
+          <h3>What is SimplepushKey?</h3>
+          <span>+</span>
+        </div>
+        <p class="hidden">
+          SimplepushKey is an Android App that will notify your mobile device whenever another user has assigned you
+          with a task.
+          <br><br>This is for optional use of course.
+        </p>
+      </div>
+    </div>
+    <img src="images/scheduling-board.png" class="right" />
+  </div>
+  <script>
+    const headers = document.querySelectorAll(".faq-header");
+    const para = document.querySelectorAll(".hidden");
+    const toggleIcon = document.querySelectorAll("span");
+
+    for (let i = 0; i < headers.length; i++) {
+      headers[i].addEventListener("click", () => {
+        para[i] =
+          para[i].style.display == "block"
+            ? (para[i].style.display = "none")
+            : (para[i].style.display = "block");
+        toggleIcon[i].textContent =
+          toggleIcon[i].textContent === "+" ? "−" : "+";
+      });
+    }
+    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+  </script>
+  <footer style="background-color: #ababab; padding: 5px; text-align: center;">
+    <p>&copy; 2024 Trello. All rights reserved.</p>
+    <p>
+      <a href="/privacyPolicy.html" style="text-decoration: none; color: #007BFF;">
+        Privacy Policy
+      </a>
+    </p>
+  </footer>
+</body>
+
+</html>

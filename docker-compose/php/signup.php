@@ -1,7 +1,8 @@
 <?php
-include("backend/database.php");
-include("header.html");
 session_start();
+include("backend/database.php");
+ob_start();
+include("header.html");
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +11,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>SIGN UP</title>
-    <link rel="stylesheet" href="/trello/css/form.css" />
+    <link rel="stylesheet" href="css/form.css" />
 </head>
 
 <body>
@@ -69,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
 }
 
 mysqli_close($conn);
+ob_end_flush();
 ?>
 
 <!DOCTYPE html>

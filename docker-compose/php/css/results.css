@@ -1,0 +1,107 @@
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+}
+
+[data-theme="dark"] {
+    --bg-color: #656565;
+    --text-color: #e1d8d8;
+}
+
+.results {
+    font-size: 2.0rem;
+    align-self: center;
+}
+
+#assign {
+    background-color: #b0b0b0;
+    font-size: 0.8rem;
+}
+
+p {
+    font-size: 19px;
+}
+
+.statusMessage {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    margin: 20px auto;
+    font-size: 36px;
+    color: red;
+    z-index: 1000;
+    font-family: helvetica;
+}
+
+input {
+    border-radius: 15px;
+    background-color: hsl(213, 8%, 72%);
+    align-self: center;
+    color: black;
+}
+
+button,
+.button,
+.button2 {
+    color: black;
+    font-size: 1rem;
+    padding: 0.3rem 0.6rem;
+}
+
+.button {
+    display: inline-block;
+    background-color: #565a5f;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+div.divOptions>a {
+    text-decoration: none;
+    background-color: orange;
+    padding: 3px;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+div.task>p {
+    display: inline-block;
+}
+
+.timestamp,
+.status {
+    font-size: 16px;
+    display: inline;
+}
+
+.button2 {
+    padding: 0.5rem 1rem;
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: beige;
+    color: black;
+}
+
+button{
+    margin-left: 30px;
+}
+
+#delete_task_list{
+    margin-left: 80px;
+}

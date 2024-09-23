@@ -1,0 +1,88 @@
+<?php
+session_start();
+include('backend/database.php');
+
+// Buffer output to prevent headers already sent issue
+ob_start();
+include("header.html");
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/form.css" />
+</head>
+
+<body>
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+        <label for="username">Username:</label><br>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <br>
+        <input type="submit" name="login" value="Login">
+        <br>
+    </form>
+
+    <?php
+    // Handle the POST request
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        $stmt = $conn->prepare("SELECT username, password, email, firstName, lastName, simplepushKey FROM users WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            // Fetch the user data
+            $user = $result->fetch_assoc();
+
+            // Verify the password
+            if (password_verify($password, $user['password'])) {
+                // If the password is correct, start the session
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['firstName'] = $user['firstName'];
+                $_SESSION['lastName'] = $user['lastName'];
+                $_SESSION['simplepushKey'] = $user['simplepushKey'];
+
+                if (isset($_SESSION['previous_page'])) {
+                    $redirect_url = $_SESSION['previous_page'];
+                    header("Location: $redirect_url");
+                    exit;
+                } else {
+                    header("Location: index.php");
+                    exit;
+                }
+            } else {
+                // Invalid password
+                echo '<div class="statusMessage">Wrong Password!</div>';
+            }
+        } else {
+            // User not found
+            echo '<div class="statusMessage">Username not found</div>';
+        }
+
+        $stmt->close();
+    }
+    $conn->close();
+ob_end_flush(); // Flush the buffer after header is included
+    ?>
+
+    <form action="signup.php" method="POST">
+        <br><br>
+        <p>Don't have an account?</p>
+        <input type="submit" value="Sign Up">
+    </form>
+</body>
+
+</html>
+

@@ -1,0 +1,98 @@
+* {
+  color: lightcyan;
+}
+
+html,body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: rgb(61, 61, 204);
+}
+
+a {
+  text-decoration: none;
+}
+
+button{
+    cursor: pointer;
+}
+
+.mid-section {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 100px;
+}
+
+h1 {
+  font-family: cursive, sans-serif;
+  font-size: 3.5rem;
+  font-weight: 700;
+}
+
+p {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem; 
+  font-weight: 300;
+  line-height: 1.6; 
+}
+
+.start {
+  border-radius: 25px;
+  border:none;
+  padding:10% 30%;
+  font-size: 1rem; 
+  font-weight: bold;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-color: blue;
+}
+
+.frame{
+    width: 250px;
+    height:350px;
+    border-radius: 25px;
+    align-self: center;
+}
+
+.person{
+    height: 120%;
+    width: 120%;
+    margin-top:-40px;
+    margin-left: -10px;
+    min-width: 200px;
+}
+
+.tasklist,.tasklist2,.team{
+    width: 100px;
+    height: 100px;
+    opacity: 0.4;
+}
+
+.tasklist{
+    align-self: flex-end;
+    rotate: -30deg;
+}
+
+.tasklist2{
+    align-self: flex-end;
+    rotate: 30deg;
+}
+
+.team{
+    align-self: center;
+}
+
+.login {
+  background-color:gray;
+  border-radius: 25px;
+  border:none;
+  width: 110px;
+  height: 55px;
+  font-size: 1rem; 
+  font-weight: bold;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.acc-btns{
+  display: flex;
+  gap: 50px;
+}
