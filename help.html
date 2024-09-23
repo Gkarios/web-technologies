@@ -3,13 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Help</title>
     <link rel="stylesheet" href="css/light.css" id="style" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="css/theme.js"></script>
   </head>
   <body>
     <div id="header"></div>
-    <img id="toggleIcon" src="images/moon.png" title="Enter dark mode" />
+    <img id="theme-toggle" src="images/moon.png" title="Enter dark mode" />
     <div id="main-container">
       <img src="images/task-dist.png" class="left" />
       <div id="container">
@@ -21,26 +22,22 @@
             <h3>What is our mission?</h3>
             <span>+</span>
           </div>
-          <p class="hidden">Our mission is blah blah blah</p>
+          <p class="hidden">Our mission is to provide you with services that allow for task management and assignment. As well as providing you with the ability to notify your colleagues and stay up to date.</p>
           <div class="faq-header">
             <h3>How do i sign up?</h3>
             <span>+</span>
           </div>
           <p class="hidden">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Consectetur, iure et reiciendis natus porro pariatur quidem, iusto
-            minima dolorum non maxime a qui ratione quis perspiciatis ducimus
-            accusantium laudantium quia.
+            On the front-page of the site by clicking on "Get Started" you will be redirected to a sign up form. Simply provide your first and last name, your email and a password. 
           </p>
           <div class="faq-header">
             <h3>Why should i use trello clone?</h3>
             <span>+</span>
           </div>
           <p class="hidden">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat,
-            adipisci ex. Sapiente id vitae quaerat explicabo, officiis enim esse
-            fugiat, corrupti cum deleniti quia sit veniam quae minus deserunt
-            odio!
+            We provide you with such services free of advertisers, unlike other current apps. 
+           <br>Our features are straight-forward and lightweight. 
+           <br>We integrate 'SimplepushKey' services to notify your colleagues. 
           </p>
           <p>Need further assistance? Click <a href="more-help.html">here</a></p>
         </div>
@@ -48,6 +45,9 @@
       <img src="images/scheduling-board.png" class="right" />
     </div>
     <script>
+      $(function () {
+        $("#header").load("header.html");
+      });
       const headers = document.querySelectorAll(".faq-header");
       const para = document.querySelectorAll(".hidden");
       const toggleIcon = document.querySelectorAll("span");
@@ -62,27 +62,15 @@
             toggleIcon[i].textContent === "+" ? "−" : "+";
         });
       }
-
-      const tog = document.querySelector("#toggleIcon");
-      const style = document.querySelector("#style");
-      tog.addEventListener("click", () => {
-        if(style.id == "light"){
-        tog.title = "Enter light mode";
-        tog.src = "images/sun.png";
-        style.href = "css/dark.css";
-        style.id = "dark";
-      }else{
-        tog.title = "Enter dark mode";
-        tog.src = "images/moon.png";
-        style.href = "css/light.css";
-        style.id = "light";
-      }
-      });
+      document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
     </script>
-    <script>
-      $(function () {
-        $("#header").load("header.html");
-      });
-    </script>
+    <footer style="background-color: #ababab; padding: 5px; text-align: center;">
+      <p>&copy; 2024 Trello. All rights reserved.</p>
+      <p>
+          <a href="/trello/privacyPolicy.html" style="text-decoration: none; color: #007BFF;">
+              Privacy Policy
+          </a>
+      </p>
+  </footer>
   </body>
 </html>

@@ -1,5 +1,4 @@
 * {
-    color: lightcyan;
     box-sizing: border-box;
 }
 
@@ -19,6 +18,18 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+
+:root{
+    --bg-color: #ffffff;
+    --text-color: #000000;
+}
+
+[data-theme="dark"]{
+    --bg-color: #656565;
+    --text-color: #e1d8d8;
 }
 
 form {
@@ -35,13 +46,17 @@ label{
 
 input {
     border-radius: 15px;
-    background-color: hsl(216, 100%, 85%);
+    background-color: hsl(216, 15%, 60%);
     align-self: center;
     font-size: 1.5rem;
     border: none;
     padding: 2%;
     outline: solid 3px black;
     margin-top: 5px;
+}
+
+h2{
+    color: rgb(162, 162, 162);
 }
 
 input:focus{
@@ -64,7 +79,7 @@ input[type="submit"] {
 
 .statusMessage {
     position: absolute;
-    top: 100px;
+    top: 40px;
     left: 50%;
     transform: translateX(-50%);
     text-align: center;
@@ -90,7 +105,7 @@ h2 {
 #opt-container{
     display: flex;
     width: 300px;
-    margin-left: 40px;
+    margin-left: 70px;
     gap: 10px;
 }
 
@@ -99,6 +114,9 @@ h2 {
     width: 50%;
     color: beige;
     margin-top: 5px;
+    margin-top: 20px;
+    height: 60px;
+    right: 80px;
 }
 
 

@@ -1,8 +1,19 @@
 html,
 body {
-  background-color: #38722d;
   min-height: 97vh;
   user-select: none;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+:root{
+    --bg-color: #ffffff;
+    --text-color: #000000;
+}
+
+[data-theme="dark"]{
+    --bg-color: #656565;
+    --text-color: #e1d8d8;
 }
 
 a {

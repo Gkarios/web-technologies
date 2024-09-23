@@ -53,11 +53,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
             $_SESSION['lastName'] = $user['lastName'];
             $_SESSION['simplepushKey'] = $user['simplepushKey'];
 
+            if(isset($_SESSION['previous_page'])){
+                $redirect_url = $_SESSION['previous_page'];
+                header("Location: $redirect_url");
+                exit;
+            }else{
             header("Location: index.php");
             exit;
+            }
         } else {
             // Invalid password
-            echo "Wrong Password!";
+            echo '<div class="statusMessage">Wrong Password!</div>';
         }
     } else {
         // User not found

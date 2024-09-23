@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Additional Information</title>
     <link rel="stylesheet" href="css/light.css" id="light" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="css/theme.js"></script>
   </head>
   <script>
     $(function () {
@@ -14,7 +15,7 @@
   </script>
   <body>
     <div id="header"></div>
-    <img id="toggleIcon" src="images/moon.png" title="Enter dark mode" />
+    <img id="theme-toggle" src="images/moon.png" title="Enter dark mode" />
     <div id="main-container">
       <img src="images/task-dist.png" class="left" />
       <div id="container">
@@ -26,30 +27,23 @@
             <span>+</span>
           </div>
           <p class="hidden">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci,
-            aspernatur accusamus cumque ipsum aut sequi temporibus a incidunt
-            nulla cupiditate obcaecati non sint eligendi voluptates doloremque
-            officiis inventore nisi laborum?
+            By clicking on "Your Tasks" at the top of the page, you will be given the opportunity to search for your current tasks; whether assigned or self-created.
           </p>
           <div class="faq-header">
             <h3>How do I assign a task to a colleague?</h3>
             <span>+</span>
           </div>
           <p class="hidden">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Consectetur, iure et reiciendis natus porro pariatur quidem, iusto
-            minima dolorum non maxime a qui ratione quis perspiciatis ducimus
-            accusantium laudantium quia.
+            Below any task there is a field to add anyone you like. 
+            <br>As long as they have an account, just ask for their username (which is exclusive to them) and assign them the task!
           </p>
           <div class="faq-header">
-            <h3>Do I need an account to make a task?</h3>
+            <h3>What is SimplepushKey?</h3>
             <span>+</span>
           </div>
           <p class="hidden">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat,
-            adipisci ex. Sapiente id vitae quaerat explicabo, officiis enim esse
-            fugiat, corrupti cum deleniti quia sit veniam quae minus deserunt
-            odio!
+            SimplepushKey is an Android App that will notify your mobile device whenever another user has assigned you with a task. 
+            <br><br>This is for optional use of course.
           </p>
         </div>
       </div>
@@ -70,22 +64,15 @@
             toggleIcon[i].textContent === "+" ? "−" : "+";
         });
       }
-
-      const tog = document.querySelector("#toggleIcon");
-      const style = document.querySelector("#light");
-      tog.addEventListener("click", () => {
-        if (style.id == "light") {
-          tog.title = "Enter light mode";
-          tog.src = "images/sun.png";
-          style.href = "css/dark.css";
-          style.id = "dark";
-        } else {
-          tog.title = "Enter dark mode";
-          tog.src = "images/moon.png";
-          style.href = "css/light.css";
-          style.id = "light";
-        }
-      });
+      document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
     </script>
+    <footer style="background-color: #ababab; padding: 5px; text-align: center;">
+      <p>&copy; 2024 Trello. All rights reserved.</p>
+      <p>
+          <a href="/trello/privacyPolicy.html" style="text-decoration: none; color: #007BFF;">
+              Privacy Policy
+          </a>
+      </p>
+  </footer>
   </body>
 </html>

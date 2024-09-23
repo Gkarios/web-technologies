@@ -8,6 +8,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 if (!isset($_SESSION['username'])) {
+    $_SESSION['previous_page'] = $_SERVER['REQUEST_URI'];
     header("Location: login.php");
     exit;
 }
@@ -26,10 +27,10 @@ if (isset($_GET['search_query'])) {
     // Query to search in task lists and tasks
     $query = "
         SELECT tl.task_list_id, tl.list_title, t.title, t.status, t.timestamp
-        FROM taskLists tl 
-        LEFT JOIN tasks t ON tl.task_list_id = t.task_list_id 
-        WHERE (tl.list_title LIKE ? OR t.title LIKE ? OR t.status LIKE ?) 
-        AND tl.username = ? 
+        FROM taskLists tl
+        LEFT JOIN tasks t ON tl.task_list_id = t.task_list_id
+        WHERE (tl.list_title LIKE ? OR t.title LIKE ? OR t.status LIKE ?)
+        AND tl.username = ?
         ORDER BY tl.timestamp DESC, t.timestamp DESC
     ";
     $stmt = $conn->prepare($query);
@@ -47,9 +48,9 @@ if (isset($_GET['search_query'])) {
 
     $query = "
     SELECT title, owner, status
-    FROM tasks 
-    WHERE assigned = ? 
-    AND (title LIKE ? OR status LIKE ?) 
+    FROM tasks
+    WHERE assigned = ?
+    AND (title LIKE ? OR status LIKE ?)
     ORDER BY timestamp DESC
 ";
     $stmt = $conn->prepare($query);
@@ -72,12 +73,13 @@ $conn->close();
 <html lang="en">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Search Task Lists and Tasks</title>
+<title>Search</title>
 <link rel="stylesheet" href="css/results.css" />
+<script src="css/theme.js"></script>
 </head>
 
 <body>
-    <a href="tasks.html" class="button">Edit Tasks</a>
+    <a href="tasks.php" class="button">Edit Tasks</a>
     <br>
     <h1>Search Your Tasks</h1>
     <form method="GET">
@@ -124,11 +126,11 @@ $conn->close();
         </ul>
         <br>
     <?php endif;
-    
+
 if ($noMainTask == true && $noAssignedTask == true) {
     echo '<br><div class="statusMessage">No results found.</div>';
 }
-    
+
     ?>
     </div>
 </body>

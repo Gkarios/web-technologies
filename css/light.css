@@ -1,52 +1,63 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html,body{
-  height: 100%;
-  background-color: whitesmoke;
+    height: 100%;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+:root{
+    --bg-color: #ffffff;
+    --text-color: #000000;
+}
+
+[data-theme="dark"]{
+    --bg-color: #656565;
+    --text-color: #e1d8d8;
 }
 
 #main-container {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  font-family: "Times New Roman", Times, serif;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    font-family: "Times New Roman", Times, serif;
 }
 
 #container{
-  border: solid 5px lightgray;
-  border-radius: 25px;
-  overflow: hidden;
-  margin-top: 5%;
-  width: 600px;
-  min-width: 300px;
-  padding: 10px;
-  align-self: flex-start;
+    border: solid 5px lightgray;
+    border-radius: 25px;
+    overflow: hidden;
+    margin-top: 5%;
+    width: 600px;
+    min-width: 300px;
+    padding: 10px;
+    align-self: flex-start;
 }
 
 .faq {
-  text-align: center;
+    text-align: center;
 }
 
 .assistance {
-  color: rgba(0, 0, 0, 0.673);
-  text-align: center;
-  margin-bottom: 15%;
+    color: rgba(0, 0, 0, 0.673);
+    text-align: center;
+    margin-bottom: 15%;
 }
 
 h1 {
-  text-align: center;
+    text-align: center;
 }
 
 #FAQ-container {
-  height: fit-content; 
-  width: 500px;
-  margin: 0 auto; 
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  overflow: hidden;
+    height: fit-content;
+    width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
 }
 
 h3{
@@ -55,12 +66,12 @@ h3{
 }
 
 .line {
-  height: 5px;
-  background-color: lightgray;
+    height: 5px;
+    background-color: lightgray;
 }
 
 p {
-  margin-bottom: 5px;
+    margin-bottom: 5px;
 }
 
 .hidden{
@@ -87,14 +98,14 @@ span{
 }
 
 #main-container > img {
-  width: 300px;
-  height: 300px;
-  margin-top: 22%;
+    width: 300px;
+    height: 300px;
+    margin-top: 22%;
 }
 
 body > img{
-  position: absolute;
-  left: 95%;
-  top: 10%;
-  cursor: pointer;
+    position: absolute;
+    left: 95%;
+    top: 10%;
+    cursor: pointer;
 }

@@ -14,11 +14,11 @@ html{
 
 body {
     font-size: 1.7rem;
-    background: linear-gradient(135deg, #2a0dcf, #3d3c3c);
     display: flex;
     flex-direction: column;
     height: 100vh;
     gap: 100px;
+    background-color: rgb(61, 61, 204);
 }
 
 form {
