@@ -190,7 +190,7 @@ $taskLists = mysqli_query($conn, $query);
                     const statusOptions = document.getElementById('statusOptions_<?php echo $task['id']; ?>');
                     statusOptions.innerHTML = '';
         
-                    const options = [' in progress ', ' stand by ', ' completed '];
+                    const options = ['in progress', 'stand by', 'completed'];
                     options.forEach(option => {
                         const link = document.createElement('a');
                         link.textContent = option;
