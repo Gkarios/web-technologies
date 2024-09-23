@@ -1,19 +1,18 @@
-/* * {
-    color: lightcyan;
-    margin-bottom: 18px;
+body{
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
-
-body {
-    line-height: 1.5;
-    font-size: 16px;
-    background: linear-gradient(135deg, #2a0dcf, #3d3c3c);
-    display: flex;
-    flex-direction: column;
-    height: 250vh;
-    overflow: auto;
+:root{
+    --bg-color: #ffffff;
+    --text-color: #000000;
 }
-*/
+
+[data-theme="dark"]{
+    --bg-color: #656565;
+    --text-color: #e1d8d8;
+}
+
 .results{
     font-size: 2.0rem;
     align-self: center;
@@ -26,7 +25,7 @@ body {
 
 input {
     border-radius: 15px;
-    background-color: hsl(216, 100%, 90%);
+    background-color: hsl(213, 8%, 72%);
     align-self: center;
     color: black;
 }
@@ -47,8 +46,16 @@ button, .button, .button2{
     cursor: pointer;
 }
 
-a {
+ div.divOptions > a {
     text-decoration: none;
+    background-color: orange;
+    padding: 3px;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+
+div.task > p{
+    display: inline-block;
 }
 
 .timestamp, .status{
@@ -67,3 +74,4 @@ a {
     background-color: beige; /* Bootstrap primary color */
     color: black;
 }
+    
