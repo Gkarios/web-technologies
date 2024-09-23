@@ -120,10 +120,10 @@ if (isset($_GET['unassign_task'])) {
 }
 
 // Handle changing a task's status
-if (isset($_GET['change_status'])){
+if (isset($_GET['change_status'])) {
     $status = $_GET['change_status'];
     $task_id = $_GET['task_id'];
-    
+
     $stmt = $conn->prepare("UPDATE tasks SET status=? where id=?");
     $stmt->bind_param("si", $status, $task_id);
     $stmt->execute();
@@ -140,68 +140,71 @@ $taskLists = mysqli_query($conn, $query);
 
 <head>
     <title>Manage Your Task Lists</title>
-    <link rel="stylesheet" href="css/results.css"/>
+    <link rel="stylesheet" href="css/results.css" />
     <script src="css/theme.js"></script>
 </head>
+
 <body>
-<a href="results.php?search_query=" class="button">Search for Tasks</a>
-<h1>Manage your tasks</h1>
+    <a href="results.php?search_query=" class="button">Search for Tasks</a>
+    <h1>Manage your tasks</h1>
 
-<form method="POST">
-    <input type="text" name="task_list_title" placeholder="New Task List Title" required>
-    <button type="submit" name="new_task_list">Create New Task List</button>
-</form>
+    <form method="POST">
+        <input type="text" name="task_list_title" placeholder="New Task List Title" required>
+        <button type="submit" name="new_task_list">Create New Task List</button>
+    </form>
+        <br>
 
-<?php while ($taskList = mysqli_fetch_assoc($taskLists)) { ?>
-    <div class="task-list">
-        <h2><?php echo $taskList['list_title'] . "\t\t"; ?>
-            <a class='button2' href="?delete_task_list=<?php echo $taskList['task_list_id']; ?>">Delete Task List</a>
-        </h2>
+    <?php while ($taskList = mysqli_fetch_assoc($taskLists)) { ?>
+        <div class="task-list">
+            <h2><?php echo $taskList['list_title'] . "\t\t"; ?>
+                <a id="delete_task_list" class='button2' href="?delete_task_list=<?php echo $taskList['task_list_id']; ?>">Delete Task List</a>
+            </h2>
 
-        <form method="POST">
-            <input type="hidden" name="task_list_id" value="<?php echo $taskList['task_list_id']; ?>">
-            <input type="text" name="task_title" placeholder="New Task Title" required>
-            <button type="submit" name="add_task">Add Task</button>
-        </form>
+            <form method="POST">
+                <input type="hidden" name="task_list_id" value="<?php echo $taskList['task_list_id']; ?>">
+                <input type="text" name="task_title" placeholder="New Task Title" required>
+                <button type="submit" name="add_task">Add Task</button>
+            </form>
+            <br>
+            <?php
+            $currentTaskList_id = $taskList['task_list_id'];
+            $query = "SELECT * FROM tasks WHERE task_list_id='$currentTaskList_id' AND owner='$username' ORDER BY status ASC";
+            $tasks = mysqli_query($conn, $query);
 
-        <?php
-        $currentTaskList_id = $taskList['task_list_id'];
-        $query = "SELECT * FROM tasks WHERE task_list_id='$currentTaskList_id' AND owner='$username' ORDER BY status ASC";
-        $tasks = mysqli_query($conn, $query);
-
-        while ($task = mysqli_fetch_assoc($tasks)) { ?>
-            <div class="task">
-                <p><?php echo $task['title']; ?> - <?php echo $task['status'] ?>
+            while ($task = mysqli_fetch_assoc($tasks)) { ?>
+                <div class="task">
+                    <p><?php echo $task['title']; ?> - <?php echo $task['status'] ?></p>
                     <button type="button" class="button2" id="change_status_<?php echo $task['id']; ?>">Change status</button>
                     <div class="divOptions" id="statusOptions_<?php echo $task['id']; ?>" style="display: none;"></div>
                     <a href="?delete_task=<?php echo $task['id']; ?>" class="button2">Delete Task</a>
-                <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                    <input type="hidden" name="task_id" value="<?php echo $task['id']; ?>">
-                    <input type="hidden" name="task_title" value="<?php echo $task['title']; ?>">
-                    <input type="text" name="assigned_user" placeholder="Enter user to assign" required>
-                    <button type="submit" name="assign_task">Assign the task to someone</button>
-                </form>
-                </p>
-            </div>
-        
-            <script>
-                const taskId_<?php echo $task['id'] ? $task['id'] : 'null'; ?> = <?php echo json_encode($task['id'] ? $task['id'] : 'null'); ?>;
-                document.getElementById('change_status_<?php echo $task['id']; ?>').addEventListener('click', function(){
-                    const statusOptions = document.getElementById('statusOptions_<?php echo $task['id']; ?>');
-                    statusOptions.innerHTML = '';
-        
-                    const options = ['in progress', 'stand by', 'completed'];
-                    options.forEach(option => {
-                        const link = document.createElement('a');
-                        link.textContent = option;
-                        link.style.display = 'inline';
-                        link.href = `tasks.php?change_status=${encodeURIComponent(option)}&task_id=${encodeURIComponent(taskId_<?php echo $task['id']; ?>)}`;
-                        statusOptions.appendChild(link);
+                    <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                        <input type="hidden" name="task_id" value="<?php echo $task['id']; ?>">
+                        <input type="hidden" name="task_title" value="<?php echo $task['title']; ?>">
+                        <input type="text" name="assigned_user" placeholder="Enter user to assign" required>
+                        <button type="submit" id="assign" name="assign_task">Assign the task to someone</button>
+                    </form>
+                    </p>
+                </div>
+
+                <script>
+                    const taskId_<?php echo $task['id'] ? $task['id'] : 'null'; ?> = <?php echo json_encode($task['id'] ? $task['id'] : 'null'); ?>;
+                    document.getElementById('change_status_<?php echo $task['id']; ?>').addEventListener('click', function () {
+                        const statusOptions = document.getElementById('statusOptions_<?php echo $task['id']; ?>');
+                        statusOptions.innerHTML = '';
+
+                        const options = ['in progress', 'stand by', 'completed'];
+                        options.forEach(option => {
+                            const link = document.createElement('a');
+                            link.textContent = option;
+                            link.style.display = 'inline';
+                            link.href = `tasks.php?change_status=${encodeURIComponent(option)}&task_id=${encodeURIComponent(taskId_<?php echo $task['id']; ?>)}`;
+                            statusOptions.appendChild(link);
+                        });
+                        statusOptions.style.display = 'inline';
                     });
-                    statusOptions.style.display = 'inline';
-                });
-            </script>
+                </script>
             <?php }
-        } ?>
+    } ?>
 </body>
+
 </html>

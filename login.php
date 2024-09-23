@@ -1,18 +1,20 @@
 <?php
 session_start();
-include ('backend/database.php');
-include ("header.html");
+include('backend/database.php');
+include("header.html");
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Login</title>
-        <link rel="stylesheet" href="/trello/css/form.css" />
-    </head>
-    <body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/trello/css/form.css" />
+</head>
+
+<body>
     <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="POST">
         <label for="username">Username:</label><br>
         <input type="text" id="username" name="username" required>
@@ -24,7 +26,8 @@ include ("header.html");
         <input type="submit" name="login" value="Login">
         <br>
     </form>
-    </body>
+</body>
+
 </html>
 
 
@@ -45,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
 
         // Verify the password
         if (password_verify($password, $user['password'])) {
-            // Password is correct, start the session
+            // If the password is correct, start the session
 
             $_SESSION['username'] = $user['username'];
             $_SESSION['email'] = $user['email'];
@@ -53,13 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
             $_SESSION['lastName'] = $user['lastName'];
             $_SESSION['simplepushKey'] = $user['simplepushKey'];
 
-            if(isset($_SESSION['previous_page'])){
+            if (isset($_SESSION['previous_page'])) {
                 $redirect_url = $_SESSION['previous_page'];
                 header("Location: $redirect_url");
                 exit;
-            }else{
-            header("Location: index.php");
-            exit;
+            } else {
+                header("Location: index.php");
+                exit;
             }
         } else {
             // Invalid password
@@ -70,22 +73,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['login'])) {
         echo '<div class="statusMessage">Username not found</div>';
     }
 
-    // Close the statement
     $stmt->close();
 }
-
-// Close the connection
 $conn->close();
-
 ?>
-
 <!DOCTYPE html>
 <html>
-    <body>
-        <form action="signup.php" method="POST">
-            <br><br>
-            <p>Don't have an account?</p>
-            <input type="submit" value="Sign Up">
-        </form>
-    </body>
+
+<body>
+    <form action="signup.php" method="POST">
+        <br><br>
+        <p>Don't have an account?</p>
+        <input type="submit" value="Sign Up">
+    </form>
+</body>
+
 </html>

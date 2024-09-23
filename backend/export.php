@@ -13,7 +13,7 @@ if (!isset($_SESSION['username'])) {
 
 $username = $_SESSION['username'];
 
-// Fetch task lists and tasks owned by the user
+// Fetch task lists and tasks
 $query = "
     SELECT tl.task_list_id, tl.list_title, t.title, t.assigned, t.status, t.id
     FROM taskLists tl 
@@ -29,7 +29,7 @@ $result = $stmt->get_result();
 $taskLists = $result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 
-// Fetch tasks assigned directly to the user
+// Fetch assigned tasks
 $query = "
     SELECT title, owner
     FROM tasks 

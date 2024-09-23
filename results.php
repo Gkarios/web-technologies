@@ -24,7 +24,7 @@ $noAssignedTask = false;
 if (isset($_GET['search_query'])) {
     $searchQuery = $_GET['search_query'];
 
-    // Query to search in task lists and tasks
+    // Search taskLists and tasks
     $query = "
         SELECT tl.task_list_id, tl.list_title, t.title, t.status, t.timestamp
         FROM taskLists tl
@@ -89,49 +89,51 @@ $conn->close();
     </form>
 
     <div class="results">
-    <?php if (!empty($searchResults)): ?>
-        <?php
-        $currentTaskList = null;
-        foreach ($searchResults as $result):
-            // Check if we are on a new task list
-            if ($currentTaskList !== $result['task_list_id']):
-                if ($currentTaskList !== null):
-                    // Close the previous task list's UL tag
-                    echo "</ul>";
-                endif;
+        <?php if (!empty($searchResults)): ?>
+            <?php
+            $currentTaskList = null;
+            foreach ($searchResults as $result):
+                // Check if we are on a new task list
+                if ($currentTaskList !== $result['task_list_id']):
+                    if ($currentTaskList !== null):
+                        // Close the previous task list's UL tag
+                        echo "</ul>";
+                    endif;
 
-                // Update current task list ID and print the new task list title
-                $currentTaskList = $result['task_list_id'];
-                ?>
-                <h3><?php echo htmlspecialchars($result['list_title']); ?></h3>
-                <ul>
-                <?php endif; ?>
+                    // Update current task list ID and print the new task list title
+                    $currentTaskList = $result['task_list_id'];
+                    ?>
+                    <h3><?php echo htmlspecialchars($result['list_title']); ?></h3>
+                    <ul>
+                    <?php endif; ?>
 
-                <?php if (!empty($result['title'])): ?>
-                    <li><?php echo htmlspecialchars($result['title']); ?> - <div class="status"><?php echo $result['status'] ?></div> -
-                        <div class="timestamp"><?php echo $result['timestamp'] ?></div>
+                    <?php if (!empty($result['title'])): ?>
+                        <li><?php echo htmlspecialchars($result['title']); ?> - <div class="status"><?php echo $result['status'] ?>
+                            </div> -
+                            <div class="timestamp"><?php echo $result['timestamp'] ?></div>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+        <?php if (!empty($assignedTasks)): ?>
+            <h3>Tasks Assigned to You:</h3>
+            <ul>
+                <?php foreach ($assignedTasks as $task): ?>
+                    <li><?php echo htmlspecialchars($task['title']); ?> - <div class="status"><?php echo $task['status'] ?>
+                        </div> - by
+                        <?php echo htmlspecialchars(($task['owner'])); ?>
                     </li>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </ul>
-    <?php endif; ?>
-    <?php if (!empty($assignedTasks)): ?>
-        <h3>Tasks Assigned to You:</h3>
-        <ul>
-            <?php foreach ($assignedTasks as $task): ?>
-                <li><?php echo htmlspecialchars($task['title']); ?> - <div class="status"><?php echo $task['status'] ?></div> - by
-                    <?php echo htmlspecialchars(($task['owner'])); ?>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-        <br>
-    <?php endif;
+                <?php endforeach; ?>
+            </ul>
+            <br>
+        <?php endif;
 
-if ($noMainTask == true && $noAssignedTask == true) {
-    echo '<br><div class="statusMessage">No results found.</div>';
-}
+        if ($noMainTask == true && $noAssignedTask == true) {
+            echo '<br><div class="statusMessage">No results found.</div>';
+        }
 
-    ?>
+        ?>
     </div>
 </body>
 

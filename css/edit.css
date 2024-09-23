@@ -20,14 +20,14 @@ body {
     height: 100vh;
     background-color: var(--bg-color);
     color: var(--text-color);
-  }
+}
 
-:root{
+:root {
     --bg-color: #ffffff;
     --text-color: #000000;
 }
 
-[data-theme="dark"]{
+[data-theme="dark"] {
     --bg-color: #656565;
     --text-color: #e1d8d8;
 }
@@ -40,7 +40,7 @@ form {
 }
 
 
-label{
+label {
     margin-top: 10px;
 }
 
@@ -55,13 +55,14 @@ input {
     margin-top: 5px;
 }
 
-h2{
+h2 {
     color: rgb(162, 162, 162);
 }
 
-input:focus{
+input:focus {
     outline: solid 3px blue;
 }
+
 input {
     color: black;
     width: 100%;
@@ -102,14 +103,14 @@ h2 {
     font-family: helvetica;
 }
 
-#opt-container{
+#opt-container {
     display: flex;
     width: 300px;
     margin-left: 70px;
     gap: 10px;
 }
 
-#opt-container > input{
+#opt-container>input {
     outline: none;
     width: 50%;
     color: beige;
@@ -120,10 +121,10 @@ h2 {
 }
 
 
-#opt-container > input:first-child{
+#opt-container>input:first-child {
     background-color: gray;
 }
 
-#opt-container > input:last-child{
-    background-color:darkcyan;
+#opt-container>input:last-child {
+    background-color: darkcyan;
 }

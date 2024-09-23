@@ -6,14 +6,14 @@ body {
   color: var(--text-color);
 }
 
-:root{
-    --bg-color: #ffffff;
-    --text-color: #000000;
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
 }
 
-[data-theme="dark"]{
-    --bg-color: #656565;
-    --text-color: #e1d8d8;
+[data-theme="dark"] {
+  --bg-color: #656565;
+  --text-color: #e1d8d8;
 }
 
 a {
@@ -23,7 +23,6 @@ a {
 .button {
   display: inline-block;
   background-color: #404245;
-  /* Bootstrap primary color */
   color: white;
   text-decoration: none;
   border-radius: 5px;

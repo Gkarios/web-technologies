@@ -1,6 +1,6 @@
 <?php
-include ("backend/database.php");
-include ("header.html");
+include("backend/database.php");
+include("header.html");
 session_start();
 ?>
 
@@ -12,6 +12,7 @@ session_start();
     <title>SIGN UP</title>
     <link rel="stylesheet" href="/trello/css/form.css" />
 </head>
+
 <body>
     <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post">
         first name:<br>
@@ -29,6 +30,7 @@ session_start();
         <input type="submit" name="signup" value="Sign up">
     </form>
 </body>
+
 </html>
 
 <?php
@@ -57,9 +59,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
             exit;
         } catch (mysqli_sql_exception $e) {
             echo "That username has been taken";
-        } try{
+        }
+        try {
             $_SESSION['simplepushKey'] = $simplepushKey;
-        } catch (mysqli_sql_exception $e){
+        } catch (mysqli_sql_exception $e) {
             echo "The SimplePushKey is already being used";
         }
     }
@@ -70,10 +73,12 @@ mysqli_close($conn);
 
 <!DOCTYPE html>
 <html>
-    <body>
-        <form action="login.php" method="POST">
-            <p>Already have an account?</p> 
-            <input type="submit" value="Log In">
-        </form>
-    </body> 
+
+<body>
+    <form action="login.php" method="POST">
+        <p>Already have an account?</p>
+        <input type="submit" value="Log In">
+    </form>
+</body>
+
 </html>

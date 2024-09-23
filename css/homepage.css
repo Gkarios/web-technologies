@@ -25,22 +25,22 @@ button{
 
 h1 {
   font-family: cursive, sans-serif;
-  font-size: 3.5rem; /* Large and bold */
+  font-size: 3.5rem;
   font-weight: 700;
 }
 
 p {
   font-family: "Poppins", sans-serif;
-  font-size: 1rem; /* Smaller and lighter */
+  font-size: 1rem; 
   font-weight: 300;
-  line-height: 1.6; /* Improve readability */
+  line-height: 1.6; 
 }
 
 .start {
   border-radius: 25px;
   border:none;
   padding:10% 30%;
-  font-size: 1rem; /* Smaller and lighter */
+  font-size: 1rem; 
   font-weight: bold;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   background-color: blue;

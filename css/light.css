@@ -2,18 +2,19 @@
     box-sizing: border-box;
 }
 
-html,body{
+html,
+body {
     height: 100%;
     background-color: var(--bg-color);
     color: var(--text-color);
 }
 
-:root{
+:root {
     --bg-color: #ffffff;
     --text-color: #000000;
 }
 
-[data-theme="dark"]{
+[data-theme="dark"] {
     --bg-color: #656565;
     --text-color: #e1d8d8;
 }
@@ -25,7 +26,7 @@ html,body{
     font-family: "Times New Roman", Times, serif;
 }
 
-#container{
+#container {
     border: solid 5px lightgray;
     border-radius: 25px;
     overflow: hidden;
@@ -60,7 +61,7 @@ h1 {
     overflow: hidden;
 }
 
-h3{
+h3 {
     margin: 5px;
     cursor: pointer;
 }
@@ -74,18 +75,18 @@ p {
     margin-bottom: 5px;
 }
 
-.hidden{
+.hidden {
     display: none;
     margin-left: 5%;
 }
 
-.faq-header{
+.faq-header {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
 }
 
-span{
+span {
     display: flex;
     width: 20px;
     height: 20px;
@@ -97,13 +98,13 @@ span{
     margin-bottom: 5%;
 }
 
-#main-container > img {
+#main-container>img {
     width: 300px;
     height: 300px;
     margin-top: 22%;
 }
 
-body > img{
+body>img {
     position: absolute;
     left: 95%;
     top: 10%;
