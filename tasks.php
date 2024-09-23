@@ -190,11 +190,11 @@ $taskLists = mysqli_query($conn, $query);
                     const statusOptions = document.getElementById('statusOptions_<?php echo $task['id']; ?>');
                     statusOptions.innerHTML = '';
         
-                    const options = ['in progress', 'stand by', 'completed'];
+                    const options = [' in progress ', ' stand by ', ' completed '];
                     options.forEach(option => {
                         const link = document.createElement('a');
                         link.textContent = option;
-                        link.style.display = 'block';
+                        link.style.display = 'inline';
                         link.href = `tasks.php?change_status=${encodeURIComponent(option)}&task_id=${encodeURIComponent(taskId_<?php echo $task['id']; ?>)}`;
                         statusOptions.appendChild(link);
                     });

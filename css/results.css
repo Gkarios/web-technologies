@@ -46,6 +46,10 @@ button, .button, .button2{
     cursor: pointer;
 }
 
+a{
+    text-decoration: none;
+}
+
  div.divOptions > a {
     text-decoration: none;
     background-color: orange;
